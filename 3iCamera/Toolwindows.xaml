@@ -1,0 +1,51 @@
+﻿<Window x:Class="_3iCamera.Toolwindows"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_3iCamera"
+        mc:Ignorable="d" x:Name="w1"
+        Title="Toolwindows" WindowStyle="None" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">   
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Loaded">
+            <BeginStoryboard>
+                <Storyboard Duration="00:00:1" Storyboard.TargetProperty="Opacity">
+                    <DoubleAnimation From="0.6" To="1"/>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
+    <Border BorderBrush="Black" BorderThickness="1,0,1,1"> 
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>            
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Background="#FF2991F9">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="50"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+           
+                <Viewbox Width="30" Height="30">
+                    <Canvas Width="24" Height="24">
+                        <Path Fill="White" Data="M21.71 20.29L20.29 21.71A1 1 0 0 1 18.88 21.71L7 9.85A3.81 3.81 0 0 1 6 10A4 4 0 0 1 2.22 4.7L4.76 7.24L5.29 6.71L6.71 5.29L7.24 4.76L4.7 2.22A4 4 0 0 1 10 6A3.81 3.81 0 0 1 9.85 7L21.71 18.88A1 1 0 0 1 21.71 20.29M2.29 18.88A1 1 0 0 0 2.29 20.29L3.71 21.71A1 1 0 0 0 5.12 21.71L10.59 16.25L7.76 13.42M20 2L16 4V6L13.83 8.17L15.83 10.17L18 8H20L22 4Z" />
+                    </Canvas>
+                </Viewbox>
+            
+            <Label x:Name="lbl_title" Grid.Column="1" Content="Toolswindow" FontSize="18" VerticalContentAlignment="Center" FontWeight="SemiBold" Foreground="White" ></Label>
+            <Button x:Name="btn_close" Grid.Column="2"  Style="{StaticResource MetroWindowButtonStyle}" Click="Btn_close_Click">
+                <Viewbox Width="35" Height="35">
+                    <Canvas Width="24" Height="24">
+                        <Path Fill="White" Data="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22C17.53,22 22,17.53 22,12C22,6.47 17.53,2 12,2M14.59,8L12,10.59L9.41,8L8,9.41L10.59,12L8,14.59L9.41,16L12,13.41L14.59,16L16,14.59L13.41,12L16,9.41L14.59,8Z" />
+                    </Canvas>
+                </Viewbox>
+            </Button>
+        </Grid>
+        <Frame x:Name="frameholder" Grid.Row="1" NavigationUIVisibility="Hidden" >
+            
+        </Frame>
+    </Grid>
+    </Border>
+</Window>

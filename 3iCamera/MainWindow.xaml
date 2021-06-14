@@ -1,0 +1,63 @@
+﻿<Window x:Class="_3iCamera.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_3iCamera"
+        mc:Ignorable="d"
+        Title="I-Captuer" WindowState="Maximized" WindowStyle="None">
+    <Window.Resources>
+       
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+          
+        </Grid.RowDefinitions>
+        <Grid Background="White">
+            <Grid.Effect>
+                <DropShadowEffect BlurRadius="20" ShadowDepth="2" Opacity=".8" Color="DarkGray" Direction="360"></DropShadowEffect>
+            </Grid.Effect>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="50"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Border BorderBrush="Red" BorderThickness="1" CornerRadius="5" Margin="4">
+            <Image Source="Images/ALogo.png" Margin="0" Width="40" Height="40"></Image>
+            </Border>
+            <Label Grid.Column="1" Content="i-Capture" FontSize="20" VerticalContentAlignment="Center" FontWeight="SemiBold" ></Label>
+            <Button x:Name="btn_close" Grid.Column="2"  Style="{StaticResource MetroWindowButtonStyle}" Click="Btn_close_Click">
+                <Viewbox Width="40" Height="40">
+                    <Canvas Width="24" Height="24">
+                        <Path Fill="Red" Data="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22C17.53,22 22,17.53 22,12C22,6.47 17.53,2 12,2M14.59,8L12,10.59L9.41,8L8,9.41L10.59,12L8,14.59L9.41,16L12,13.41L14.59,16L16,14.59L13.41,12L16,9.41L14.59,8Z" />
+                    </Canvas>
+                </Viewbox>
+            </Button>
+        </Grid>
+        <Menu Grid.Row="1" FontSize="18" Background="#005A9E"  HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="0" >
+            <MenuItem Header="Main Menu" Template="{StaticResource VsMenuTop}" ></MenuItem>
+            <MenuItem Header="Tools" Template="{StaticResource VsOnline}">
+                <MenuItem Header="Doctor" Template="{StaticResource VsMenuSub}" Icon="Images/icons8-doctor-main.png" >
+                    <MenuItem Header="Add Doctor" x:Name="tool_adddoctor" Click="tool_adddoctor_Click" Template="{StaticResource VsMenuSub}"  Icon="Images/icons8-doctor-Add.png" ></MenuItem>
+                    <MenuItem Header="View Doctor" x:Name="tool_viewdoctor" Click="tool_viewdoctor_Click" Template="{StaticResource VsMenuSub}" Icon="Images/icons8-doctor-List.png"/>
+                    </MenuItem>
+                <MenuItem Header="Utility" x:Name="tool_utility" Click="tool_utility_Click" Template="{StaticResource VsMenuSub}" Icon="Images/icons8-user-settings.png"/>
+                <MenuItem Header="Report Setting" x:Name="tool_report_setting" Click="tool_report_setting_Click"  Template="{StaticResource VsMenuSub}" Icon="Images/icons8-file.png"/>
+                    <Separator Template="{StaticResource VsMenuSep}"/>
+                <MenuItem Header="Register" Template="{StaticResource VsMenuSub}" Icon="Images/icons8-usb-key.png"/>
+                </MenuItem>
+            <MenuItem Header="Help" Template="{StaticResource VsOnline}">
+                <MenuItem x:Name="tool_about" Header="About Us" Template="{StaticResource VsMenuSub}" Icon="Images/icons8-contact.png" Click="tool_about_Click"/>
+            </MenuItem>
+        </Menu>
+        <TextBlock Grid.Row="1" HorizontalAlignment="Right" Width="500"></TextBlock>
+        <Frame x:Name="Pageframe"  Grid.Row="2" NavigationUIVisibility="Hidden" >
+            
+        </Frame>
+        <!--Footer Grid-->
+     
+    </Grid>
+</Window>
