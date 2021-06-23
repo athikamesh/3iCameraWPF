@@ -39,6 +39,8 @@ namespace _3iCamera
         public CaptuerScreen()
         {
             InitializeComponent();
+
+           
             LoaclWebCamsCollection = new FilterInfoCollection(FilterCategory.VideoInputDevice);
             LocalWebCam = new VideoCaptureDevice(LoaclWebCamsCollection[0].MonikerString);
             videoCapabilities = LocalWebCam.VideoCapabilities;
