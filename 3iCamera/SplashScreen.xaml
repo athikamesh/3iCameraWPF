@@ -16,7 +16,6 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-        <WPFSpark:FluidProgressBar HorizontalAlignment="Left" Height="25"  Grid.Row="1" VerticalAlignment="Top" Width="600"/>
-        <WPFSpark:FluidStatusBar HorizontalAlignment="Left" Height="25"  Grid.Row="1" VerticalAlignment="Bottom" Width="300" />
+        <WPFSpark:FluidProgressBar HorizontalAlignment="Left" Height="25"  Grid.Row="1" VerticalAlignment="Bottom" Width="600"/>
     </Grid>
 </Window>

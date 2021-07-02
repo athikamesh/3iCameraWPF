@@ -12,6 +12,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
+using WPFSpark;
 
 namespace _3iCamera
 {
@@ -22,6 +24,7 @@ namespace _3iCamera
     {
         bool isBGWorking = false;
         BackgroundWorker bgWorker;
+        int increase = 0; DispatcherTimer DS = new DispatcherTimer();
         public SplashScreen()
         {
             InitializeComponent();
@@ -31,6 +34,33 @@ namespace _3iCamera
             bgWorker.DoWork += new DoWorkEventHandler(DoWork);
             bgWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(OnWorkCompleted);
             bgWorker.ProgressChanged += new ProgressChangedEventHandler(OnProgress);
+            
+           
+            
+            DS.Tick += DS_Tick;
+            DS.Interval = new TimeSpan(0,0,1);
+            DS.Start();
+        }
+
+        private void DS_Tick(object sender, EventArgs e)
+        {
+            if(!isBGWorking)
+            {
+                bgWorker.RunWorkerAsync();
+                isBGWorking = true;
+            }
+            if (increase >=10)
+            {
+                DS.Stop();
+                this.Hide();
+                bgWorker.CancelAsync();
+                isBGWorking = false;
+                MainWindow md = new MainWindow();
+                md.ShowDialog();
+               
+
+            }
+
         }
 
         private void OnProgress(object sender, ProgressChangedEventArgs e)
@@ -40,12 +70,17 @@ namespace _3iCamera
 
         private void OnWorkCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            
+           
+            isBGWorking = false;
         }
 
         private void DoWork(object sender, DoWorkEventArgs e)
         {
+
+            increase++;         
+              
             
+           
         }
     }
 }
