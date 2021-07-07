@@ -7,7 +7,7 @@
       xmlns:local="clr-namespace:_3iCamera.Pages"
       xmlns:ToggleSwitch="clr-namespace:ToggleSwitch;assembly=ToggleSwitch"  x:Class="_3iCamera.Pages.Utility"
       mc:Ignorable="d" 
-      Height="450" Width="510"
+      Height="460" Width="510"
       Title="Utility">
 
     <Grid>
@@ -25,12 +25,12 @@
             <RowDefinition Height="70"/>
         </Grid.RowDefinitions>
         <TextBlock Text="Device Name" VerticalAlignment="Top"  Grid.Row="0" FontSize="18" FontWeight="SemiBold"/>
-        <ComboBox x:Name="cmb_cameralist" Grid.Row="1" SelectedIndex="0" FontSize="16" VerticalContentAlignment="Center" Style="{StaticResource ComboBoxFlatStyle}" Margin="2"/>
+        <ComboBox x:Name="cmb_cameralist" Grid.Row="1" SelectedIndex="0" FontSize="16" VerticalContentAlignment="Center" Style="{StaticResource ComboBoxFlatStyle}" Margin="2" SelectionChanged="cmb_cameralist_SelectionChanged"/>
         <TextBlock Text="Video Resolution" VerticalAlignment="Top"  Grid.Row="2" FontSize="18" FontWeight="SemiBold"/>
         <ComboBox x:Name="cmb_videoresolution" Grid.Row="3" SelectedIndex="0" FontSize="16" VerticalContentAlignment="Center" Style="{StaticResource ComboBoxFlatStyle}" Margin="2"/>
-        <TextBlock Text="Image Resolution" VerticalAlignment="Top"  Grid.Row="4" FontSize="18" FontWeight="SemiBold"/>
+        <TextBlock Text="Image Resolution" VerticalAlignment="Top" HorizontalAlignment="Left"  Grid.Row="4" FontSize="18" FontWeight="SemiBold"/>
         <ComboBox x:Name="cmb_imageresolution" Grid.Row="5" SelectedIndex="0" FontSize="16" VerticalContentAlignment="Center" Style="{StaticResource ComboBoxFlatStyle}" Margin="2"/>
-
+        <TextBlock x:Name="txb_image_resolution" Text="" VerticalAlignment="Top" HorizontalAlignment="Left"  Grid.Row="4" FontSize="14" FontWeight="Normal" FontStyle="Oblique" Foreground="Red" Margin="160,5,0,0"/>
         <Grid Grid.Row="7">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="160"></ColumnDefinition>
