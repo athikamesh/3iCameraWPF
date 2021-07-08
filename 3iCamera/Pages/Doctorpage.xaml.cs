@@ -20,9 +20,12 @@ namespace _3iCamera.Pages
     /// </summary>
     public partial class Doctorpage : Page
     {
+        FunctionalClass FNC = new FunctionalClass();
         public Doctorpage()
         {
             InitializeComponent();
+            
+
         }
 
         private void Btn_cancel_Click(object sender, RoutedEventArgs e)
@@ -35,7 +38,17 @@ namespace _3iCamera.Pages
 
         private void Btn_save_Click(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+               
+                DoctorClass DC = new DoctorClass();
+                DC.Doctorname = "Sample";
+                DC.Speciality = "IOL";
+                DC.SetDefault = true;
+                String Message= FNC.SaveDoctor(DC);
+                MessageBox.Show(Message);
+            }
+            catch(Exception ex) { }
         }
     }
 }

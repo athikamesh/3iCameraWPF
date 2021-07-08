@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -28,14 +30,13 @@ namespace _3iCamera
         public SplashScreen()
         {
             InitializeComponent();
+            CommanHelper.databasepath = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\DBFile\\3CameraDB.db";
             bgWorker = new BackgroundWorker();
             bgWorker.WorkerSupportsCancellation = true;
             bgWorker.WorkerReportsProgress = true;
             bgWorker.DoWork += new DoWorkEventHandler(DoWork);
             bgWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(OnWorkCompleted);
-            bgWorker.ProgressChanged += new ProgressChangedEventHandler(OnProgress);
-            
-           
+            bgWorker.ProgressChanged += new ProgressChangedEventHandler(OnProgress);        
             
             DS.Tick += DS_Tick;
             DS.Interval = new TimeSpan(0,0,1);
@@ -48,6 +49,13 @@ namespace _3iCamera
             {
                 bgWorker.RunWorkerAsync();
                 isBGWorking = true;
+            }
+            if(increase==4)
+            {             
+                if (File.Exists(CommanHelper.databasepath)==true)
+                {
+                    txt_status.Text = "Database connected";
+                }
             }
             if (increase >=10)
             {
