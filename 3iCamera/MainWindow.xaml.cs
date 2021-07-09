@@ -34,7 +34,7 @@ namespace _3iCamera
 
         private void tool_adddoctor_Click(object sender, RoutedEventArgs e)
         {
-            Pages.Doctorpage UP = new Pages.Doctorpage();
+            Pages.Doctorpage UP = new Pages.Doctorpage(0);
             Toolwindows TW = new Toolwindows(UP);
             TW.ShowDialog();
         }

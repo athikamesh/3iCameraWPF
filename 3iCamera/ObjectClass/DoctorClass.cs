@@ -9,8 +9,8 @@ namespace _3iCamera
     class DoctorClass
     {
         public int Sno { get; set; }
-        public string Doctorname { get; set; }
-        public string Speciality { get; set; }
-        public bool SetDefault { get; set; }
+        public string doctorname { get; set; }
+        public string speciality { get; set; }
+        public bool setDefault { get; set; }
     }
 }

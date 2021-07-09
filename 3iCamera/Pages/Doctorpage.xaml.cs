@@ -21,10 +21,25 @@ namespace _3iCamera.Pages
     public partial class Doctorpage : Page
     {
         FunctionalClass FNC = new FunctionalClass();
-        public Doctorpage()
+        int DSno = 0;
+        public Doctorpage(int Sno)
         {
             InitializeComponent();
-            
+            if(Sno==0)
+            {
+                btn_save.Tag = "Save";
+            }
+            else
+            {
+                var Doctordetail = FNC.GetDoctor(Sno);
+                if(Doctordetail!=null)
+                {
+                    txt_doctorname.Text = Doctordetail.doctorname;
+                    cmb_specality.Text = Doctordetail.speciality;
+                    DSno = Doctordetail.Sno;
+                }
+                btn_save.Tag = "Update";
+            }
 
         }
 
@@ -40,13 +55,33 @@ namespace _3iCamera.Pages
         {
             try
             {
-               
-                DoctorClass DC = new DoctorClass();
-                DC.Doctorname = "Sample";
-                DC.Speciality = "IOL";
-                DC.SetDefault = true;
-                String Message= FNC.SaveDoctor(DC);
-                MessageBox.Show(Message);
+                string indication = ((Button)sender).Tag.ToString();
+                if (indication == "Save")
+                {
+                    if (txt_doctorname.Text != string.Empty && cmb_specality.Text != string.Empty)
+                    {
+                        DoctorClass DC = new DoctorClass();
+                        DC.doctorname = txt_doctorname.Text;
+                        DC.speciality = cmb_specality.Text;
+                        DC.setDefault = false;
+                        String Message = FNC.SaveDoctor(DC);
+                        MessageBox.Show(Message, "Information Message", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    else { MessageBox.Show("Please fill requiered fields","Warning Message",MessageBoxButton.OK,MessageBoxImage.Warning); }
+                }
+                else
+                {
+                    if (txt_doctorname.Text != string.Empty && cmb_specality.Text != string.Empty)
+                    {
+                        DoctorClass DC = new DoctorClass();
+                        DC.Sno = DSno;
+                        DC.doctorname = txt_doctorname.Text;
+                        DC.speciality = cmb_specality.Text;                      
+                        String Message = FNC.UpdateDoctor(DC);
+                        MessageBox.Show(Message, "Information Message", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    else { MessageBox.Show("Please fill requiered fields", "Warning Message", MessageBoxButton.OK, MessageBoxImage.Warning); }
+                }
             }
             catch(Exception ex) { }
         }
