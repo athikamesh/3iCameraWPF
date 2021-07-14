@@ -1,4 +1,5 @@
-﻿using AForge.Video;
+﻿using AForge.Imaging.Filters;
+using AForge.Video;
 using AForge.Video.DirectShow;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,7 @@ namespace _3iCamera
         VideoCaptureDevice LocalWebCam;
         public FilterInfoCollection LoaclWebCamsCollection;
         private AForge.Video.DirectShow.VideoCapabilities[] videoCapabilities;
+        private AForge.Video.DirectShow.VideoCapabilities[] snapshotCapabilities;
         string gen = "";
         private string __checkvalue;
         public string Checkvalue
@@ -36,43 +38,89 @@ namespace _3iCamera
             set { __checkvalue = value; }
         }
         public bool camera_status = false;
+
+
         public CaptuerScreen()
         {
             InitializeComponent();
 
            
             LoaclWebCamsCollection = new FilterInfoCollection(FilterCategory.VideoInputDevice);
-            LocalWebCam = new VideoCaptureDevice(LoaclWebCamsCollection[0].MonikerString);
+            LocalWebCam = new VideoCaptureDevice(LoaclWebCamsCollection[CommanHelper.Cm_CameraId].MonikerString);
             videoCapabilities = LocalWebCam.VideoCapabilities;
-            LocalWebCam.VideoResolution = videoCapabilities[0];
+            snapshotCapabilities = LocalWebCam.SnapshotCapabilities;
+            LocalWebCam.VideoResolution = videoCapabilities[CommanHelper.Cm_VResolution];
+            LocalWebCam.SnapshotResolution = snapshotCapabilities[CommanHelper.Cm_IResolution];
+            LocalWebCam.ProvideSnapshots = true;            
             LocalWebCam.NewFrame += new NewFrameEventHandler(Cam_NewFrame);
-            
+            LocalWebCam.SnapshotFrame += new NewFrameEventHandler(videoDevice_SnapshotFrame);
             btn_od.IsDefault = true;
-           
+          
             btn_od_Click(null, null);
         }
         void Cam_NewFrame(object sender, NewFrameEventArgs eventArgs)
         {
             try
             {
-                System.Drawing.Image img = (Bitmap)eventArgs.Frame.Clone();
-
-                MemoryStream ms = new MemoryStream();
-                img.Save(ms, ImageFormat.Bmp);
-                ms.Seek(0, SeekOrigin.Begin);
-                BitmapImage bi = new BitmapImage();
-                bi.BeginInit();
-                bi.StreamSource = ms;
-                bi.EndInit();
-
-                bi.Freeze();
-                Dispatcher.BeginInvoke(new ThreadStart(delegate
+                //Bitmap bmp = (Bitmap)eventArgs.Frame.Clone();
+                //Mirror filter = new Mirror(false, true);
+                //bmp = filter.Apply(bmp);
+                //System.Drawing.Image img = bmp;
+                //MemoryStream ms = new MemoryStream();
+                //img.Save(ms, ImageFormat.Bmp);
+                //ms.Seek(0, SeekOrigin.Begin);
+                //BitmapImage bi = new BitmapImage();
+                //bi.BeginInit();
+                //bi.StreamSource = ms;
+                //bi.EndInit();
+                //bi.Freeze();
+                //Dispatcher.BeginInvoke(new ThreadStart(delegate
+                //{
+                //    frameHolder.Source = bi;
+                //}));
+                if (CommanHelper.Cm_Mirror == true)
                 {
-                    frameHolder.Source = bi;
-                }));
+                    eventArgs.Frame.RotateFlip(RotateFlipType.Rotate180FlipY);
+                }
+                else { eventArgs.Frame.Clone(); }
             }
             catch (Exception ex)
             {
+            }
+        }
+
+        // New snapshot frame is available
+        private void videoDevice_SnapshotFrame(object sender, NewFrameEventArgs eventArgs)
+        {
+            Console.WriteLine(eventArgs.Frame.Size);
+            if (CommanHelper.Cm_Mirror == true)
+            {
+                eventArgs.Frame.RotateFlip(RotateFlipType.Rotate180FlipY);
+            }
+            Bitmap bmp = (Bitmap)eventArgs.Frame.Clone();         
+            ShowSnapshot(bmp);
+
+        }
+
+        private void ShowSnapshot(Bitmap image_snapshot_from_camera)
+        {
+            if (!Dispatcher.CheckAccess())
+            {
+
+                Dispatcher.Invoke(new Action<Bitmap>(ShowSnapshot), image_snapshot_from_camera);
+            }
+            else
+            {
+                string path = CommanHelper.Cm_Spath;
+                try
+                {
+
+                    image_snapshot_from_camera.Save(path + "\\NewCametra-" + DateTime.Now.ToString("yyyy-MM-dd hh-mm-ss") + "-" + gen + ".jpg", ImageFormat.Jpeg);
+
+                }
+                catch (Exception ex) { MessageBox.Show(ex.Message, "Warning"); }
+
+
             }
         }
 
@@ -80,10 +128,13 @@ namespace _3iCamera
         {
             if (camera_status == false)
             {
+                player.VideoSource = LocalWebCam;                
                 LocalWebCam.Start();
+                player.Start();
                 videoresolution.Content = LocalWebCam.VideoResolution.FrameSize.Width + "x" + LocalWebCam.VideoResolution.FrameSize.Height;
                 txt_stso.Text = "Stop Camera";
                 camera_status=true;
+                btn_back.IsEnabled = false;
             }
             else
             {
@@ -95,8 +146,12 @@ namespace _3iCamera
                 LocalWebCam.SignalToStop();
                 LocalWebCam.WaitForStop();                
                 txt_stso.Text = "Start Camera";                
+                btn_back.IsEnabled = true;
+                player.VideoSource = null;
+                LocalWebCam.Stop();
+                player.Stop();
                 GC.Collect();
-                frameHolder.Source = logo;
+
             }
             
         }
@@ -127,6 +182,15 @@ namespace _3iCamera
         private void Window_Activated(object sender, EventArgs e)
         {
           
+        }
+
+        private void btn_snap_Click(object sender, RoutedEventArgs e)
+        {
+            if ((LocalWebCam != null) && (LocalWebCam.ProvideSnapshots))
+            {
+                LocalWebCam.SimulateTrigger();
+
+            }
         }
     }
 }

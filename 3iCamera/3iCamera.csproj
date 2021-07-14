@@ -149,6 +149,7 @@
     <Compile Include="CommenClass\CommanHelper.cs" />
     <Compile Include="CRUD\FunctionalClass.cs" />
     <Compile Include="ObjectClass\DoctorClass.cs" />
+    <Compile Include="ObjectClass\UtilityClass.cs" />
     <Compile Include="Pages\Doctorlist.xaml.cs">
       <DependentUpon>Doctorlist.xaml</DependentUpon>
     </Compile>
@@ -166,6 +167,9 @@
     </Compile>
     <Compile Include="SplashScreen.xaml.cs">
       <DependentUpon>SplashScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="testform.xaml.cs">
+      <DependentUpon>testform.xaml</DependentUpon>
     </Compile>
     <Compile Include="Toolwindows.xaml.cs">
       <DependentUpon>Toolwindows.xaml</DependentUpon>
@@ -221,6 +225,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SplashScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="testform.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

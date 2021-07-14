@@ -27,10 +27,13 @@ namespace _3iCamera
         bool isBGWorking = false;
         BackgroundWorker bgWorker;
         int increase = 0; DispatcherTimer DS = new DispatcherTimer();
+        FunctionalClass FNC = new FunctionalClass();
+        
         public SplashScreen()
         {
             InitializeComponent();
             CommanHelper.databasepath = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\DBFile\\3CameraDB.db";
+      
             bgWorker = new BackgroundWorker();
             bgWorker.WorkerSupportsCancellation = true;
             bgWorker.WorkerReportsProgress = true;
@@ -49,12 +52,36 @@ namespace _3iCamera
             {
                 bgWorker.RunWorkerAsync();
                 isBGWorking = true;
+
+            }
+            if(increase ==2)
+            {
+                if (File.Exists(CommanHelper.databasepath) == true)
+                {
+                    txt_status.Text = "Database connected";
+                }
             }
             if(increase==4)
             {             
                 if (File.Exists(CommanHelper.databasepath)==true)
                 {
-                    txt_status.Text = "Database connected";
+                    var DR = FNC.GetUtiltiy();
+                    if (DR != null)
+                    {
+                        CommanHelper.Cm_CameraId = int.Parse(DR.CameraId.ToString());
+                        CommanHelper.Cm_Devicename = DR.Devicename.ToString();
+                        CommanHelper.Cm_VResolution = int.Parse(DR.VResolution.ToString());
+                        CommanHelper.Cm_IResolution = int.Parse(DR.IResolution.ToString());
+                        CommanHelper.Cm_AspectRatio = Convert.ToBoolean(DR.AspectRatio.ToString());
+                        CommanHelper.Cm_Spath = DR.Spath.ToString();
+                        CommanHelper.Cm_Mirror = Convert.ToBoolean(DR.Mirror.ToString());
+                    }
+                    else
+                    {
+                        Pages.Utility UP = new Pages.Utility();
+                        Toolwindows TW = new Toolwindows(UP);
+                        TW.ShowDialog();
+                    }
                 }
             }
             if (increase >=10)

@@ -1,0 +1,22 @@
+﻿<Window x:Class="_3iCamera.testform"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_3iCamera"
+        mc:Ignorable="d"
+        Title="testform" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Image x:Name="img1" Stretch="Fill"></Image>
+        <Image x:Name="img2" Grid.Column="1" Grid.Row="0"  Stretch="Fill"></Image>
+        <Button Grid.Column="1" Grid.Row="1" Content="Flip" x:Name="btn_flip" Click="btn_flip_Click"></Button>
+    </Grid>
+</Window>

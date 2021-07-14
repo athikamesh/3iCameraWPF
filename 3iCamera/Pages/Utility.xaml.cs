@@ -1,6 +1,7 @@
 ﻿using AForge.Video.DirectShow;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,11 +26,22 @@ namespace _3iCamera.Pages
         private AForge.Video.DirectShow.VideoCaptureDevice videoDevice;
         private AForge.Video.DirectShow.VideoCapabilities[] videoCapabilities;
         private AForge.Video.DirectShow.VideoCapabilities[] snapshotCapabilities;
+        FunctionalClass FC = new FunctionalClass();
         public Utility()
         {
             InitializeComponent();           
             intiaHdcamera();
+            if(GetData()=="Save")
+            {
+                btn_save.Tag = "Save";
+            }
+            else
+            {
+                btn_save.Tag = "Update";
+            }
+
         }
+
         void intiaHdcamera()
         {
             try
@@ -59,12 +71,64 @@ namespace _3iCamera.Pages
         }
         private void Btn_save_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                string indication = ((Button)sender).Tag.ToString();
 
+                if (cmb_cameralist.Text!="" && cmb_imageresolution.Text != "" && cmb_videoresolution.Text != "" && txt_storagepath.Text!="")
+                {
+                    if (indication == "Save")
+                    {
+                        UtilityClass UC = new UtilityClass();
+                        UC.CameraId = cmb_cameralist.SelectedIndex;
+                        UC.Devicename = cmb_cameralist.Text;
+                        UC.IResolution = cmb_imageresolution.SelectedIndex;
+                        UC.VResolution = cmb_videoresolution.SelectedIndex;
+                        UC.Spath = txt_storagepath.Text;
+                        UC.AspectRatio = ARCheckbox.IsChecked;
+                        UC.Mirror = MRCheckbox.IsChecked;
+                        string Message = FC.SaveUtility(UC);
+                        CreateFolder(txt_storagepath.Text);
+                        MessageBox.Show(Message, "Information Message", MessageBoxButton.OK, MessageBoxImage.Information);
+
+
+
+                    }
+                    else
+                    {
+                        UtilityClass UC = new UtilityClass();
+                        UC.CameraId = cmb_cameralist.SelectedIndex;
+                        UC.Devicename = cmb_cameralist.Text;
+                        UC.IResolution = cmb_imageresolution.SelectedIndex;
+                        UC.VResolution = cmb_videoresolution.SelectedIndex;
+                        UC.Spath = txt_storagepath.Text;
+                        UC.AspectRatio = ARCheckbox.IsChecked;
+                        UC.Mirror = MRCheckbox.IsChecked;
+                        string Message = FC.UpdateUtility(UC);
+                        CreateFolder(txt_storagepath.Text);
+                        MessageBox.Show(Message, "Information Message", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    CommanHelper.Cm_CameraId = cmb_cameralist.SelectedIndex;
+                    CommanHelper.Cm_Devicename = cmb_cameralist.Text.ToString();
+                    CommanHelper.Cm_VResolution = cmb_videoresolution.SelectedIndex;
+                    CommanHelper.Cm_IResolution = cmb_imageresolution.SelectedIndex;
+                    CommanHelper.Cm_AspectRatio = ARCheckbox.IsChecked;
+                    CommanHelper.Cm_Spath = txt_storagepath.Text;
+                    CommanHelper.Cm_Mirror = MRCheckbox.IsChecked;
+                }
+                else { MessageBox.Show("Please fill requiered fields", "Warning Message", MessageBoxButton.OK, MessageBoxImage.Warning); }
+            }
+            catch(Exception ex) { }
         }
 
         private void Btn_cancel_Click(object sender, RoutedEventArgs e)
         {
-
+            cmb_cameralist.SelectedIndex = 0;
+            cmb_imageresolution.SelectedIndex = 2;           
+            cmb_videoresolution.SelectedIndex = 3;
+            ARCheckbox.IsChecked = false;
+            MRCheckbox.IsChecked = false;
+            txt_storagepath.Text = @"C:\Videorecording";
         }
         // Collect supported video and snapshot sizes
         private void EnumeratedSupportedFrameSizes(AForge.Video.DirectShow.VideoCaptureDevice videoDevice)
@@ -123,6 +187,35 @@ namespace _3iCamera.Pages
         {
             videoDevice = new AForge.Video.DirectShow.VideoCaptureDevice(videoDevices[cmb_cameralist.SelectedIndex].MonikerString);
             EnumeratedSupportedFrameSizes(videoDevice);
+        }
+
+        string GetData()
+        {
+            string rts = "";
+            var data = FC.GetUtiltiy();
+            if (data.Spath != null) { rts = "Update"; cmb_cameralist.SelectedIndex = data.CameraId;cmb_imageresolution.SelectedIndex = data.IResolution; cmb_videoresolution.SelectedIndex = data.VResolution; txt_storagepath.Text = data.Spath;ARCheckbox.IsChecked = data.AspectRatio;MRCheckbox.IsChecked = data.Mirror; } else { rts = "Save"; }
+            return rts;
+        }
+
+        private void btn_path_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                System.Windows.Forms.FolderBrowserDialog openFileDlg = new System.Windows.Forms.FolderBrowserDialog();
+                var result = openFileDlg.ShowDialog();
+                if (result.ToString() != string.Empty)
+                {
+                    txt_storagepath.Text = openFileDlg.SelectedPath;
+                }
+            }
+            catch { }
+        }
+
+        String CreateFolder(string path)
+        {
+            string status = "Already Create";
+            if (Directory.Exists(path)) { Directory.CreateDirectory(path);status = "Created"; }
+            return status;
         }
     }
 }

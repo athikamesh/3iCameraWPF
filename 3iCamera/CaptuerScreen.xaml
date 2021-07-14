@@ -14,9 +14,10 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="400"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Image HorizontalAlignment="Stretch" Name="frameHolder"  VerticalAlignment="Stretch"  Stretch="Fill" Grid.Column="0" Source="images/PVS2.png">
-
-        </Image>
+       
+        <wfi:WindowsFormsHost Grid.Row="0">
+            <AFControl:VideoSourcePlayer x:Name="player" BackColor="Black"/>
+        </wfi:WindowsFormsHost>
         <Label x:Name="videoresolution" Grid.Column="0" Height="50"  VerticalAlignment="top" HorizontalAlignment="Right" Foreground="Green"></Label>
         <Grid Grid.Column="1">
             <Grid.ColumnDefinitions>
@@ -67,7 +68,7 @@
                         <TextBlock Grid.Column="1" Text="Stop Recording" FontSize="16" Foreground="White" TextWrapping="WrapWithOverflow" FontWeight="SemiBold" VerticalAlignment="Center"></TextBlock>
                     </Grid>
                 </Button>
-                <Button x:Name="btn_snap" Grid.Row="2" Style="{DynamicResource RoundCorner}" Background="DodgerBlue" Margin="4,2,4,2" >
+                <Button x:Name="btn_snap" Grid.Row="2" Style="{DynamicResource RoundCorner}" Background="DodgerBlue" Margin="4,2,4,2" Click="btn_snap_Click" >
                     <Grid Width="150">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="50"></ColumnDefinition>
