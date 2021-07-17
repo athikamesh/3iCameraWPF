@@ -193,7 +193,16 @@ namespace _3iCamera.Pages
         {
             string rts = "";
             var data = FC.GetUtiltiy();
-            if (data.Spath != null) { rts = "Update"; cmb_cameralist.SelectedIndex = data.CameraId;cmb_imageresolution.SelectedIndex = data.IResolution; cmb_videoresolution.SelectedIndex = data.VResolution; txt_storagepath.Text = data.Spath;ARCheckbox.IsChecked = data.AspectRatio;MRCheckbox.IsChecked = data.Mirror; } else { rts = "Save"; }
+            if (data.Spath != null) 
+            { rts = "Update"; 
+                cmb_cameralist.SelectedIndex = data.CameraId;
+                cmb_imageresolution.SelectedIndex = data.IResolution; 
+                cmb_videoresolution.SelectedIndex = data.VResolution; 
+                txt_storagepath.Text = data.Spath;
+                ARCheckbox.IsChecked = data.AspectRatio;
+                MRCheckbox.IsChecked = data.Mirror;
+            }
+            else { rts = "Save"; }
             return rts;
         }
 

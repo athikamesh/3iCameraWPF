@@ -42,21 +42,38 @@ namespace _3iCamera
 
         public CaptuerScreen()
         {
-            InitializeComponent();
-
-           
+            InitializeComponent();           
             LoaclWebCamsCollection = new FilterInfoCollection(FilterCategory.VideoInputDevice);
-            LocalWebCam = new VideoCaptureDevice(LoaclWebCamsCollection[CommanHelper.Cm_CameraId].MonikerString);
-            videoCapabilities = LocalWebCam.VideoCapabilities;
-            snapshotCapabilities = LocalWebCam.SnapshotCapabilities;
-            LocalWebCam.VideoResolution = videoCapabilities[CommanHelper.Cm_VResolution];
-            LocalWebCam.SnapshotResolution = snapshotCapabilities[CommanHelper.Cm_IResolution];
-            LocalWebCam.ProvideSnapshots = true;            
-            LocalWebCam.NewFrame += new NewFrameEventHandler(Cam_NewFrame);
-            LocalWebCam.SnapshotFrame += new NewFrameEventHandler(videoDevice_SnapshotFrame);
-            btn_od.IsDefault = true;
-          
-            btn_od_Click(null, null);
+            if (LoaclWebCamsCollection.Count == 0)
+            {
+                MessageBox.Show("Device Not Found..!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                btn_start.IsEnabled = false;
+                btn_start_recording.IsEnabled = false;
+                btn_stop_recording.IsEnabled = false;
+                btn_snap.IsEnabled = false;
+                btn_save.IsEnabled = false;
+                btn_analysis.IsEnabled = false;
+                btn_fullscreen.IsEnabled = false;
+                
+            }
+            else
+            {
+                LocalWebCam = new VideoCaptureDevice(LoaclWebCamsCollection[CommanHelper.Cm_CameraId].MonikerString);
+                videoCapabilities = LocalWebCam.VideoCapabilities;
+                snapshotCapabilities = LocalWebCam.SnapshotCapabilities;
+                LocalWebCam.VideoResolution = videoCapabilities[CommanHelper.Cm_VResolution];
+                LocalWebCam.ProvideSnapshots = true;
+                LocalWebCam.NewFrame += new NewFrameEventHandler(Cam_NewFrame);
+                if (snapshotCapabilities.Count() > 0)
+                {
+                    LocalWebCam.SnapshotResolution = snapshotCapabilities[CommanHelper.Cm_IResolution];
+                    LocalWebCam.SnapshotFrame += new NewFrameEventHandler(videoDevice_SnapshotFrame);
+                }                
+              
+                btn_od.IsDefault = true;
+
+                btn_od_Click(null, null);
+            }
         }
         void Cam_NewFrame(object sender, NewFrameEventArgs eventArgs)
         {
@@ -92,13 +109,17 @@ namespace _3iCamera
         // New snapshot frame is available
         private void videoDevice_SnapshotFrame(object sender, NewFrameEventArgs eventArgs)
         {
-            Console.WriteLine(eventArgs.Frame.Size);
-            if (CommanHelper.Cm_Mirror == true)
+            try
             {
-                eventArgs.Frame.RotateFlip(RotateFlipType.Rotate180FlipY);
+                Console.WriteLine(eventArgs.Frame.Size);
+                if (CommanHelper.Cm_Mirror == true)
+                {
+                    eventArgs.Frame.RotateFlip(RotateFlipType.Rotate180FlipY);
+                }
+                Bitmap bmp = (Bitmap)eventArgs.Frame.Clone();
+                ShowSnapshot(bmp);
             }
-            Bitmap bmp = (Bitmap)eventArgs.Frame.Clone();         
-            ShowSnapshot(bmp);
+            catch(Exception ex) { }
 
         }
 
@@ -126,33 +147,37 @@ namespace _3iCamera
 
         private void Btn_start_Click(object sender, RoutedEventArgs e)
         {
-            if (camera_status == false)
+            try
             {
-                player.VideoSource = LocalWebCam;                
-                LocalWebCam.Start();
-                player.Start();
-                videoresolution.Content = LocalWebCam.VideoResolution.FrameSize.Width + "x" + LocalWebCam.VideoResolution.FrameSize.Height;
-                txt_stso.Text = "Stop Camera";
-                camera_status=true;
-                btn_back.IsEnabled = false;
-            }
-            else
-            {
-                camera_status = false;
-                BitmapImage logo = new BitmapImage();
-                logo.BeginInit();
-                logo.UriSource = new Uri("pack://application:,,,/Images/PVS2.png");
-                logo.EndInit();              
-                LocalWebCam.SignalToStop();
-                LocalWebCam.WaitForStop();                
-                txt_stso.Text = "Start Camera";                
-                btn_back.IsEnabled = true;
-                player.VideoSource = null;
-                LocalWebCam.Stop();
-                player.Stop();
-                GC.Collect();
+                if (camera_status == false)
+                {
+                    player.VideoSource = LocalWebCam;
+                    LocalWebCam.Start();
+                    player.Start();
+                    videoresolution.Content = LocalWebCam.VideoResolution.FrameSize.Width + "x" + LocalWebCam.VideoResolution.FrameSize.Height;
+                    txt_stso.Text = "Stop Camera";
+                    camera_status = true;
+                    btn_back.IsEnabled = false;
+                }
+                else
+                {
+                    camera_status = false;
+                    BitmapImage logo = new BitmapImage();
+                    logo.BeginInit();
+                    logo.UriSource = new Uri("pack://application:,,,/Images/PVS2.png");
+                    logo.EndInit();
+                    LocalWebCam.SignalToStop();
+                    LocalWebCam.WaitForStop();
+                    txt_stso.Text = "Start Camera";
+                    btn_back.IsEnabled = true;
+                    player.VideoSource = null;
+                    LocalWebCam.Stop();
+                    player.Stop();
+                    GC.Collect();
 
+                }
             }
+            catch(Exception ex) { }
             
         }
 

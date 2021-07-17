@@ -4,9 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
+using System.Drawing;
+using System.Windows.Media.Imaging;
+using System.IO;
+
 namespace _3iCamera
 {
-    class FunctionalClass
+     class FunctionalClass
     {
         #region Doctor
 
@@ -159,7 +163,7 @@ namespace _3iCamera
 
         public string UpdateUtility(UtilityClass utilityClass)
         {
-            string status = "Data not Save Successfully";
+            string status = "Data not update successfully";
 
             if (utilityClass != null)
             {
@@ -218,5 +222,148 @@ namespace _3iCamera
         }
 
         #endregion
+
+        #region ReportSetting
+
+        public string SaveReportSetting(ReportSettingClass reportSettingClass)
+        {
+            string status = "Data not Save Successfully";
+            if (reportSettingClass != null)
+            {
+                Con.Open();
+                SQLiteCommand sQLiteCommand = new SQLiteCommand("insert into tbl_ReportData (ReportType,Hospitalname,Doctorname,Address,Phone,Mobile,Emailid,Time,Logo) values (@1,@2,@3,@4,@5,@6,@7,@8,@9)", Con);
+                sQLiteCommand.Parameters.AddWithValue("@1", reportSettingClass.ReportType);
+                sQLiteCommand.Parameters.AddWithValue("@2", reportSettingClass.Hospitalname);
+                sQLiteCommand.Parameters.AddWithValue("@3", reportSettingClass.Doctorname);
+                sQLiteCommand.Parameters.AddWithValue("@4", reportSettingClass.Address);
+                sQLiteCommand.Parameters.AddWithValue("@5", reportSettingClass.Phone);
+                sQLiteCommand.Parameters.AddWithValue("@6", reportSettingClass.Mobile);
+                sQLiteCommand.Parameters.AddWithValue("@7", reportSettingClass.Emailid);
+                sQLiteCommand.Parameters.AddWithValue("@8", reportSettingClass.Time);
+                sQLiteCommand.Parameters.AddWithValue("@9", reportSettingClass.Logo);
+                int i = sQLiteCommand.ExecuteNonQuery();
+                if (i > 0)
+                {
+                    status = "Data Save Successfully";
+                }
+                sQLiteCommand.Dispose();
+                Con.Close();
+
+            }
+            return status;
+        }
+
+        public string UpdateReportSetting(ReportSettingClass reportSettingClass)
+        {
+            string status = "Data not update successfully";
+            if (reportSettingClass != null)
+            {
+                Con.Open();
+                SQLiteCommand sQLiteCommand = new SQLiteCommand("update tbl_ReportData set ReportType=@1,Hospitalname=@2,Doctorname=@3,Address=@4,Phone=@5,Mobile=@6,Emailid=@7,Time=@8,Logo=@9", Con);
+                sQLiteCommand.Parameters.AddWithValue("@1", reportSettingClass.ReportType);
+                sQLiteCommand.Parameters.AddWithValue("@2", reportSettingClass.Hospitalname);
+                sQLiteCommand.Parameters.AddWithValue("@3", reportSettingClass.Doctorname);
+                sQLiteCommand.Parameters.AddWithValue("@4", reportSettingClass.Address);
+                sQLiteCommand.Parameters.AddWithValue("@5", reportSettingClass.Phone);
+                sQLiteCommand.Parameters.AddWithValue("@6", reportSettingClass.Mobile);
+                sQLiteCommand.Parameters.AddWithValue("@7", reportSettingClass.Emailid);
+                sQLiteCommand.Parameters.AddWithValue("@8", reportSettingClass.Time);
+                sQLiteCommand.Parameters.AddWithValue("@9", reportSettingClass.Logo);
+                int i = sQLiteCommand.ExecuteNonQuery();
+                if (i > 0)
+                {
+                    status = "Data Update Successfully";
+                }
+                sQLiteCommand.Dispose();
+                Con.Close();
+
+            }
+            return status;
+        }
+
+        public ReportSettingClass GetReportSetting()
+        {
+            try
+            {
+                Con = new SQLiteConnection("Data Source = " + CommanHelper.databasepath + ";Version=3;New=False;Compress=True;");
+                ReportSettingClass DRC = new ReportSettingClass();
+                Con.Open();
+                SQLiteCommand sQLiteCommand = new SQLiteCommand("Select * from tbl_ReportData", Con);
+                SQLiteDataReader DR = sQLiteCommand.ExecuteReader();
+
+                if (DR.Read())
+                {
+                    DRC.ReportType =DR.GetValue(0).ToString();
+                    DRC.Hospitalname = DR.GetValue(1).ToString();
+                    DRC.Doctorname = DR.GetValue(2).ToString();
+                    DRC.Address = DR.GetValue(3).ToString();
+                    DRC.Phone = DR.GetValue(4).ToString();
+                    DRC.Mobile = DR.GetValue(5).ToString();
+                    DRC.Emailid = DR.GetValue(6).ToString();
+                    DRC.Time = DR.GetValue(7).ToString();
+                    const int CHUNK_SIZE = 2 * 1024;
+                    byte[] buffer = new byte[CHUNK_SIZE];
+                    long bytesRead;
+                    long fieldOffset = 0;
+                    using (MemoryStream stream = new MemoryStream())
+                    {
+                        while ((bytesRead = DR.GetBytes(8, fieldOffset, buffer, 0, buffer.Length)) > 0)
+                        {
+                            stream.Write(buffer, 0, (int)bytesRead);
+                            fieldOffset += bytesRead;
+                        }
+                        DRC.Logo = stream.ToArray();
+                    }
+                  
+                }
+
+                sQLiteCommand.Dispose();
+                Con.Close();
+                return DRC;
+            }
+            catch (Exception ex) { return null; }
+
+        }
+       
+        #endregion
     }
+    public static class Image_Convertion
+    {
+        public static byte[] ImagetoByte(BitmapImage bitmapImage)
+        {
+            byte[] data;
+            JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
+            using (MemoryStream ms = new MemoryStream())
+            {
+                encoder.Save(ms);
+                data = ms.ToArray();
+            }
+            return data;
+        }
+
+        public static BitmapImage ToBitmapImage(this byte[] data)
+        {
+            using (MemoryStream ms = new MemoryStream(data))
+            {
+
+                BitmapImage img = new BitmapImage();                
+                img.BeginInit();
+                img.CacheOption = BitmapCacheOption.OnLoad;
+                img.StreamSource = ms;
+                img.EndInit();
+
+                if (img.CanFreeze)
+                {
+                    img.Freeze();
+                }
+
+
+                return img;
+            }
+        }
+
+      
+    }
+
 }

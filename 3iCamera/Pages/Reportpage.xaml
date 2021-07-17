@@ -22,7 +22,7 @@
             <RowDefinition Height="60"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150"></ColumnDefinition>
+            <ColumnDefinition Width="130"></ColumnDefinition>
             <ColumnDefinition Width="320"></ColumnDefinition>
             <ColumnDefinition Width="230"></ColumnDefinition>
         </Grid.ColumnDefinitions>
@@ -35,7 +35,7 @@
         <TextBlock Text="Email Id" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" FontSize="18"></TextBlock>
         <TextBlock Text="Time" Grid.Row="7" Grid.Column="0" VerticalAlignment="Center" FontSize="18"></TextBlock>
         <Image x:Name="imglogo" Grid.Row="0" Grid.Column="2" Grid.RowSpan="4" Margin="5" Source="/3iCamera;component/Images/lg.png" AllowDrop="True" Drop="imglogo_Drop"></Image>
-        <Button Grid.Row="4" Grid.Column="2" Style="{StaticResource RoundCorner3}" Width="150" Margin="5" Content="Browse"></Button>
+        <Button x:Name="btn_browse" Grid.Row="4" Grid.Column="2" Style="{StaticResource RoundCorner3}" Width="150" Margin="5" Content="Browse" Click="btn_browse_Click"></Button>
         <StackPanel Grid.Row="5" Grid.RowSpan="2" Grid.Column="2" Margin="15">
             
             <Grid>
@@ -54,27 +54,27 @@
                 <TextBlock x:Name="tb_csize" Text="Null" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18"></TextBlock>
             </Grid>
         </StackPanel>
-        <ToggleSwitch:HorizontalToggleSwitch HorizontalAlignment="Left" Grid.Column="1" VerticalAlignment="Stretch" CheckedContent="No Header" UncheckedContent="Header" Margin="0,2" Width="200" Height="40" ThumbSize="45">
+        <ToggleSwitch:HorizontalToggleSwitch x:Name="RTCheckbox" HorizontalAlignment="Left" Grid.Column="1" VerticalAlignment="Stretch" CheckedContent="Header" UncheckedContent="No Header" Margin="0,2" Width="200" Height="40" ThumbSize="45">
             <ToggleSwitch:HorizontalToggleSwitch.CheckedBackground>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF2991F9" Offset="1"/>
-                    <GradientStop Color="#FF2991F9"/>
-                </LinearGradientBrush>
-            </ToggleSwitch:HorizontalToggleSwitch.CheckedBackground>
-            <ToggleSwitch:HorizontalToggleSwitch.UncheckedBackground>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FF11C93B" Offset="1"/>
                     <GradientStop Color="#FF11C93B"/>
                 </LinearGradientBrush>
+            </ToggleSwitch:HorizontalToggleSwitch.CheckedBackground>
+            <ToggleSwitch:HorizontalToggleSwitch.UncheckedBackground>                
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF2991F9" Offset="1"/>
+                    <GradientStop Color="#FF2991F9"/>
+                </LinearGradientBrush>
             </ToggleSwitch:HorizontalToggleSwitch.UncheckedBackground>
         </ToggleSwitch:HorizontalToggleSwitch>
-        <TextBox x:Name="txt_hspname" Grid.Row="1" Grid.Column="1" Margin="5"></TextBox>
-        <TextBox x:Name="txt_doctorname" Grid.Row="2" Grid.Column="1" Margin="5"></TextBox>
-        <TextBox x:Name="txt_address" Grid.Row="3" Grid.Column="1" Margin="5" TextWrapping="Wrap"></TextBox>
-        <TextBox x:Name="txt_telno" Grid.Row="4" Grid.Column="1" Margin="5"></TextBox>
-        <TextBox x:Name="txt_mobno" Grid.Row="5" Grid.Column="1" Margin="5"></TextBox>
-        <TextBox x:Name="txt_email" Grid.Row="6" Grid.Column="1" Margin="5"></TextBox>
-        <TextBox x:Name="txt_time" Grid.Row="7" Grid.Column="1" Margin="5"></TextBox>
+        <TextBox x:Name="txt_hspname" Grid.Row="1" Grid.Column="1" Margin="5"  BorderBrush="DodgerBlue" BorderThickness="0,0,0,2" FontSize="20"></TextBox>
+        <TextBox x:Name="txt_doctorname" Grid.Row="2" Grid.Column="1" Margin="5" BorderBrush="DodgerBlue" BorderThickness="0,0,0,2" FontSize="20"></TextBox>
+        <TextBox x:Name="txt_address" Grid.Row="3" Grid.Column="1" Margin="5" TextWrapping="Wrap" BorderBrush="DodgerBlue" BorderThickness="0,0,0,2" FontSize="20"></TextBox>
+        <TextBox x:Name="txt_telno" Grid.Row="4" Grid.Column="1" Margin="5" BorderBrush="DodgerBlue" BorderThickness="0,0,0,2" FontSize="20"></TextBox>
+        <TextBox x:Name="txt_mobno" Grid.Row="5" Grid.Column="1" Margin="5" BorderBrush="DodgerBlue" BorderThickness="0,0,0,2" FontSize="20"></TextBox>
+        <TextBox x:Name="txt_email" Grid.Row="6" Grid.Column="1" Margin="5" BorderBrush="DodgerBlue" BorderThickness="0,0,0,2" FontSize="20"></TextBox>
+        <TextBox x:Name="txt_time" Grid.Row="7" Grid.Column="1" Margin="5" BorderBrush="DodgerBlue" BorderThickness="0,0,0,2" FontSize="20"></TextBox>
 
         <Grid Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Right" Width="350">
             <Grid.ColumnDefinitions>
