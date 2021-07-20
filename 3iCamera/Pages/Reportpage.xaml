@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:ToggleSwitch="clr-namespace:ToggleSwitch;assembly=ToggleSwitch"
       xmlns:local="clr-namespace:_3iCamera.Pages"
+     
       mc:Ignorable="d" 
       Height="550" Width="705"
       Title="Reportpage">
@@ -74,7 +75,8 @@
         <TextBox x:Name="txt_telno" Grid.Row="4" Grid.Column="1" Margin="5" BorderBrush="DodgerBlue" BorderThickness="0,0,0,2" FontSize="20"></TextBox>
         <TextBox x:Name="txt_mobno" Grid.Row="5" Grid.Column="1" Margin="5" BorderBrush="DodgerBlue" BorderThickness="0,0,0,2" FontSize="20"></TextBox>
         <TextBox x:Name="txt_email" Grid.Row="6" Grid.Column="1" Margin="5" BorderBrush="DodgerBlue" BorderThickness="0,0,0,2" FontSize="20"></TextBox>
-        <TextBox x:Name="txt_time" Grid.Row="7" Grid.Column="1" Margin="5" BorderBrush="DodgerBlue" BorderThickness="0,0,0,2" FontSize="20"></TextBox>
+
+        <TextBox x:Name="txt_time" Grid.Row="7" Grid.Column="1" Margin="5" BorderBrush="DodgerBlue" BorderThickness="0,0,0,2" FontSize="20"  ></TextBox>
 
         <Grid Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Right" Width="350">
             <Grid.ColumnDefinitions>

@@ -46,6 +46,7 @@ namespace _3iCamera.Pages
                 logo = Image_Convertion.ToBitmapImage(data.Logo);
                 imglogo.Source = logo;
                 btn_save.Tag = "Update";
+                tb_csize.Text = logo.Width.ToString() + "X" + logo.Height.ToString();
             }
         }
 
@@ -110,6 +111,7 @@ namespace _3iCamera.Pages
                 logo.UriSource = new Uri(files[0].ToString());
                 logo.EndInit();
                 imglogo.Source = logo;
+                tb_csize.Text= logo.Width.ToString() + "X" + logo.Height.ToString();
             }
         }
 
@@ -140,6 +142,7 @@ namespace _3iCamera.Pages
                     logo.UriSource = new Uri(filename);
                     logo.EndInit();
                     imglogo.Source = logo;
+                    tb_csize.Text = logo.Width.ToString() + "X" + logo.Height.ToString();
                 }
             }
             catch (Exception ex) { }

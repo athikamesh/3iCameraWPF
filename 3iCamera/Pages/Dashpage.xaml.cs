@@ -57,5 +57,11 @@ namespace _3iCamera.Pages
             summarycolumn.Width = (scrwd / 100) * 10;
            
         }
+
+        private void btn_patient_Click(object sender, RoutedEventArgs e)
+        {
+            PatientWindow PW = new PatientWindow();
+            PW.ShowDialog();
+        }
     }
 }

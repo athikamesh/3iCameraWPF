@@ -157,7 +157,7 @@
                     <TextBlock Grid.Column="1" Text="Report" FontSize="20" Foreground="White" VerticalAlignment="Center"></TextBlock>
                 </Grid>
             </Button>
-            <Button Grid.Row="4" Style="{DynamicResource RoundCorner}" Background="DodgerBlue" Margin="4,2,4,2">
+            <Button x:Name="btn_patient" Grid.Row="4" Style="{DynamicResource RoundCorner}" Background="DodgerBlue" Margin="4,2,4,2" Click="btn_patient_Click">
                 <Grid Width="150">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="50"></ColumnDefinition>

@@ -1,0 +1,131 @@
+﻿<Window x:Class="_3iCamera.PatientWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_3iCamera"
+        mc:Ignorable="d"      xmlns:ToggleSwitch="clr-namespace:ToggleSwitch;assembly=ToggleSwitch" 
+        Title="PatientWindow" Height="330" Width="800" WindowStyle="None" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Window.Effect>
+       
+            <DropShadowEffect BlurRadius="5" ShadowDepth="10" Direction="320" Color="Red" Opacity="1"></DropShadowEffect>
+      
+    </Window.Effect>
+<Border BorderBrush="Black" BorderThickness="1,0,1,1">        
+        <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Background="#FF2991F9">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="50"/>
+            </Grid.ColumnDefinitions>
+
+            <Viewbox Width="30" Height="30">
+                <Canvas Width="24" Height="24">
+                    <Path Fill="White" Data="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2M18 20H6V4H13V9H18V20M9 13V19H7V13H9M15 15V19H17V15H15M11 11V19H13V11H11Z"/>
+                </Canvas>
+            </Viewbox>
+
+                <Label x:Name="lbl_title" Grid.Column="1" Content="PatientWindow" FontSize="18" VerticalContentAlignment="Center" FontWeight="SemiBold" Foreground="White" />
+            <Button x:Name="btn_close" Grid.Column="2"  Style="{StaticResource MetroWindowButtonStyle}" Click="Btn_close_Click">
+                <Viewbox Width="35" Height="35">
+                    <Canvas Width="24" Height="24">
+                        <Path Fill="White" Data="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22C17.53,22 22,17.53 22,12C22,6.47 17.53,2 12,2M14.59,8L12,10.59L9.41,8L8,9.41L10.59,12L8,14.59L9.41,16L12,13.41L14.59,16L16,14.59L13.41,12L16,9.41L14.59,8Z" />
+                    </Canvas>
+                </Viewbox>
+            </Button>
+        </Grid>
+        <Grid Grid.Row="1" Margin="2">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="130"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="60"></RowDefinition>            
+        </Grid.RowDefinitions>
+        <TextBlock Text="Patient ID" VerticalAlignment="Center"  Grid.Row="0" FontSize="18" FontWeight="SemiBold"/>
+        <TextBlock Text="First Name" VerticalAlignment="Center"  Grid.Row="1" FontSize="18" FontWeight="SemiBold"/>
+        <TextBlock Text="Last Name" VerticalAlignment="Center"  Grid.Row="2" FontSize="18" FontWeight="SemiBold"/>
+        <TextBlock Text="Age/DOB" VerticalAlignment="Center"  Grid.Row="3" FontSize="18" FontWeight="SemiBold"/>
+        <TextBlock Text="Gender" VerticalAlignment="Center"  Grid.Row="4" FontSize="18" FontWeight="SemiBold"/>
+        <TextBox x:Name="txt_patientid" Grid.Row="0" Grid.Column="1" Margin="5"  BorderBrush="DodgerBlue" BorderThickness="0,0,0,2" FontSize="20"></TextBox>
+        <TextBox x:Name="txt_firstname" Grid.Row="1" Grid.Column="1" Margin="5"  BorderBrush="DodgerBlue" BorderThickness="0,0,0,2" FontSize="20"></TextBox>
+        <TextBox x:Name="txt_lastname" Grid.Row="2" Grid.Column="1" Margin="5"  BorderBrush="DodgerBlue" BorderThickness="0,0,0,2" FontSize="20"></TextBox>
+                <TextBox x:Name="txt_age" Grid.Row="3" Grid.Column="1" Margin="5"  BorderBrush="DodgerBlue" BorderThickness="0,0,0,2" FontSize="20" Width="45" HorizontalAlignment="Left" HorizontalContentAlignment="Center" TextChanged="txt_age_TextChanged"></TextBox>
+                <TextBox x:Name="txt_date" Grid.Row="3" Grid.Column="1" Margin="5,5,5,5"  BorderBrush="DodgerBlue" BorderThickness="0,0,0,2" FontSize="20" Width="215" HorizontalAlignment="Right" HorizontalContentAlignment="Center"></TextBox>
+                <DatePicker x:Name="dp_dop" Width="20" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,5,6,5" SelectedDateChanged="dp_dop_SelectedDateChanged" FontSize="20"/>
+     
+            <ToggleSwitch:HorizontalToggleSwitch x:Name="ARCheckbox" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left"  VerticalAlignment="Stretch" CheckedContent="Female" UncheckedContent="Male" Margin="0,8" Width="100" Height="30" ThumbSize="35">
+                <ToggleSwitch:HorizontalToggleSwitch.CheckedBackground>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF2991F9" Offset="1"/>
+                        <GradientStop Color="#FF2991F9"/>
+                    </LinearGradientBrush>
+                </ToggleSwitch:HorizontalToggleSwitch.CheckedBackground>
+                <ToggleSwitch:HorizontalToggleSwitch.UncheckedBackground>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF11C93B" Offset="1"/>
+                        <GradientStop Color="#FF11C93B"/>
+                    </LinearGradientBrush>
+                </ToggleSwitch:HorizontalToggleSwitch.UncheckedBackground>
+            </ToggleSwitch:HorizontalToggleSwitch>
+            <TextBlock Text="Examining Dr. *" VerticalAlignment="Center"  Grid.Row="0" Grid.Column="2" FontSize="18" FontWeight="SemiBold"/>
+        <TextBlock Text="Diagnosis" VerticalAlignment="Center"  Grid.Row="1" Grid.Column="2" FontSize="18" FontWeight="SemiBold"/>
+        <TextBlock Text="Mobile No" VerticalAlignment="Center"  Grid.Row="2" Grid.Column="2" FontSize="18" FontWeight="SemiBold"/>
+        <TextBlock Text="Email" VerticalAlignment="Center"  Grid.Row="3" Grid.Column="2" FontSize="18" FontWeight="SemiBold"/>
+                <ComboBox x:Name="cmb_examining" Grid.Row="0" Grid.Column="3" SelectedIndex="0" FontSize="16" VerticalContentAlignment="Center" Style="{StaticResource ComboBoxFlatStyle}" Margin="5" BorderBrush="DodgerBlue" BorderThickness="0,0,0,2" >
+                  
+                </ComboBox>
+               
+            <TextBox x:Name="txt_diagnosis" Grid.Row="1" Grid.Column="3" Margin="5"  BorderBrush="DodgerBlue" BorderThickness="0,0,0,2" FontSize="20"></TextBox>
+            <TextBox x:Name="txt_mobile" Grid.Row="2" Grid.Column="3" Margin="5"  BorderBrush="DodgerBlue" BorderThickness="0,0,0,2" FontSize="20"></TextBox>
+            <TextBox x:Name="txt_email" Grid.Row="3" Grid.Column="3" Margin="5"  BorderBrush="DodgerBlue" BorderThickness="0,0,0,2" FontSize="20"></TextBox>
+
+            <Grid Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Right" Width="350">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btn_save" Grid.Column="0"  Margin="4"  Height="50" Click="Btn_save_Click" Style="{StaticResource RoundCorner}">
+                <Grid Width="150">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Viewbox Width="34" Height="34">
+                        <Canvas Width="24" Height="24" Grid.Column="0">
+                            <Path Fill="Black" Data="M17 3H5C3.89 3 3 3.9 3 5V19C3 20.1 3.89 21 5 21H19C20.1 21 21 20.1 21 19V7L17 3M19 19H5V5H16.17L19 7.83V19M12 12C10.34 12 9 13.34 9 15S10.34 18 12 18 15 16.66 15 15 13.66 12 12 12M6 6H15V10H6V6Z" />
+                        </Canvas>
+                    </Viewbox>
+                    <TextBlock Grid.Column="1" Text="Save" FontSize="16" Foreground="White" TextWrapping="WrapWithOverflow" FontWeight="SemiBold" VerticalAlignment="Center"></TextBlock>
+                </Grid>
+            </Button>
+            <Button x:Name="btn_back"  Grid.Column="1"  Margin="4"   Height="50" Click="Btn_cancel_Click" Style="{StaticResource RoundCorner}">
+                <Grid Width="150">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Viewbox Width="34" Height="34">
+                        <Canvas Width="24" Height="24" Grid.Column="0">
+                            <Path Fill="Black" Data="M12 2C17.5 2 22 6.5 22 12S17.5 22 12 22 2 17.5 2 12 6.5 2 12 2M12 4C10.1 4 8.4 4.6 7.1 5.7L18.3 16.9C19.3 15.5 20 13.8 20 12C20 7.6 16.4 4 12 4M16.9 18.3L5.7 7.1C4.6 8.4 4 10.1 4 12C4 16.4 7.6 20 12 20C13.9 20 15.6 19.4 16.9 18.3Z" />
+                        </Canvas>
+                    </Viewbox>
+                    <TextBlock Grid.Column="1" Text="Clear" FontSize="16" Foreground="White" TextWrapping="WrapWithOverflow" FontWeight="SemiBold" VerticalAlignment="Center"></TextBlock>
+                </Grid>
+            </Button>
+        </Grid>
+    </Grid>
+    </Grid>
+    </Border>
+</Window>
