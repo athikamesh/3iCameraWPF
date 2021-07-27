@@ -6,11 +6,7 @@
         xmlns:local="clr-namespace:_3iCamera"
         mc:Ignorable="d"      xmlns:ToggleSwitch="clr-namespace:ToggleSwitch;assembly=ToggleSwitch" 
         Title="PatientWindow" Height="330" Width="800" WindowStyle="None" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
-    <Window.Effect>
-       
-            <DropShadowEffect BlurRadius="5" ShadowDepth="10" Direction="320" Color="Red" Opacity="1"></DropShadowEffect>
-      
-    </Window.Effect>
+   
 <Border BorderBrush="Black" BorderThickness="1,0,1,1">        
         <Grid Background="White">
         <Grid.RowDefinitions>
@@ -26,7 +22,7 @@
 
             <Viewbox Width="30" Height="30">
                 <Canvas Width="24" Height="24">
-                    <Path Fill="White" Data="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2M18 20H6V4H13V9H18V20M9 13V19H7V13H9M15 15V19H17V15H15M11 11V19H13V11H11Z"/>
+                        <Path Fill="White" Data="M16.5,12A2.5,2.5 0 0,0 19,9.5A2.5,2.5 0 0,0 16.5,7A2.5,2.5 0 0,0 14,9.5A2.5,2.5 0 0,0 16.5,12M9,11A3,3 0 0,0 12,8A3,3 0 0,0 9,5A3,3 0 0,0 6,8A3,3 0 0,0 9,11M16.5,14C14.67,14 11,14.92 11,16.75V19H22V16.75C22,14.92 18.33,14 16.5,14M9,13C6.67,13 2,14.17 2,16.5V19H9V16.75C9,15.9 9.33,14.41 11.37,13.28C10.5,13.1 9.66,13 9,13Z"/>
                 </Canvas>
             </Viewbox>
 
@@ -58,14 +54,14 @@
         <TextBlock Text="Last Name" VerticalAlignment="Center"  Grid.Row="2" FontSize="18" FontWeight="SemiBold"/>
         <TextBlock Text="Age/DOB" VerticalAlignment="Center"  Grid.Row="3" FontSize="18" FontWeight="SemiBold"/>
         <TextBlock Text="Gender" VerticalAlignment="Center"  Grid.Row="4" FontSize="18" FontWeight="SemiBold"/>
-        <TextBox x:Name="txt_patientid" Grid.Row="0" Grid.Column="1" Margin="5"  BorderBrush="DodgerBlue" BorderThickness="0,0,0,2" FontSize="20"></TextBox>
+        <TextBox x:Name="txt_patientid" Grid.Row="0" Grid.Column="1" Margin="5"  BorderBrush="DodgerBlue" BorderThickness="0,0,0,2" FontSize="20"  TextChanged="txt_patientid_TextChanged"></TextBox>
         <TextBox x:Name="txt_firstname" Grid.Row="1" Grid.Column="1" Margin="5"  BorderBrush="DodgerBlue" BorderThickness="0,0,0,2" FontSize="20"></TextBox>
         <TextBox x:Name="txt_lastname" Grid.Row="2" Grid.Column="1" Margin="5"  BorderBrush="DodgerBlue" BorderThickness="0,0,0,2" FontSize="20"></TextBox>
                 <TextBox x:Name="txt_age" Grid.Row="3" Grid.Column="1" Margin="5"  BorderBrush="DodgerBlue" BorderThickness="0,0,0,2" FontSize="20" Width="45" HorizontalAlignment="Left" HorizontalContentAlignment="Center" TextChanged="txt_age_TextChanged"></TextBox>
-                <TextBox x:Name="txt_date" Grid.Row="3" Grid.Column="1" Margin="5,5,5,5"  BorderBrush="DodgerBlue" BorderThickness="0,0,0,2" FontSize="20" Width="215" HorizontalAlignment="Right" HorizontalContentAlignment="Center"></TextBox>
+                <TextBox x:Name="txt_date" Grid.Row="3" Grid.Column="1" Margin="5,5,5,5"  BorderBrush="DodgerBlue" BorderThickness="0,0,0,2" FontSize="20" Width="215" HorizontalAlignment="Right" HorizontalContentAlignment="Center" IsReadOnly="True"></TextBox>
                 <DatePicker x:Name="dp_dop" Width="20" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,5,6,5" SelectedDateChanged="dp_dop_SelectedDateChanged" FontSize="20"/>
      
-            <ToggleSwitch:HorizontalToggleSwitch x:Name="ARCheckbox" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left"  VerticalAlignment="Stretch" CheckedContent="Female" UncheckedContent="Male" Margin="0,8" Width="100" Height="30" ThumbSize="35">
+            <ToggleSwitch:HorizontalToggleSwitch x:Name="ARCheckbox" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left"  VerticalAlignment="Stretch" CheckedContent="Female" UncheckedContent="Male" Margin="0,8" Width="100" Height="30" ThumbSize="35" Checked="ARCheckbox_Checked" Unchecked="ARCheckbox_Unchecked">
                 <ToggleSwitch:HorizontalToggleSwitch.CheckedBackground>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FF2991F9" Offset="1"/>

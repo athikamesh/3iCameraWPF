@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace _3iCamera
 {
@@ -20,13 +22,16 @@ namespace _3iCamera
     /// </summary>
     public partial class MainWindow : Window
     {
+      
         public MainWindow()
         {
             InitializeComponent();
             Pages.Dashpage Dpage = new Pages.Dashpage();
             Pageframe.Navigate(Dpage);
+           
         }
 
+        
         private void Btn_close_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
@@ -64,6 +69,11 @@ namespace _3iCamera
         {
             ReportWindow RW = new ReportWindow();
             RW.ShowDialog();
+        }
+
+        private void Window_Activated(object sender, EventArgs e)
+        {
+            Pageframe.Refresh();
         }
     }
 }

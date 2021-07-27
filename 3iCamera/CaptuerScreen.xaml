@@ -111,7 +111,7 @@
                     </Grid>
                 </Button>
 
-                <Button x:Name="btn_save" Grid.Row="5" Style="{DynamicResource RoundCorner}" Background="DodgerBlue" Margin="4,2,4,2" >
+                <Button x:Name="btn_save" Grid.Row="5" Style="{DynamicResource RoundCorner}" Background="DodgerBlue" Margin="4,2,4,2" Click="btn_save_Click" >
                     <Grid Width="150">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="50"></ColumnDefinition>
@@ -232,13 +232,13 @@
                             </Grid.RowDefinitions>
 
                             <TextBlock Text="MRNO" VerticalAlignment="Top"  Grid.Row="0" FontSize="18" FontWeight="SemiBold"></TextBlock>
-                            <TextBox VerticalAlignment="Bottom" Height="33"  Grid.Row="1" IsReadOnly="True" BorderBrush="DodgerBlue" BorderThickness="0,0,0,2"></TextBox>
+                            <TextBox x:Name="txt_mrno" VerticalAlignment="Bottom" Height="33"  Grid.Row="1" IsReadOnly="True" BorderBrush="DodgerBlue" BorderThickness="0,0,0,2"></TextBox>
                             <TextBlock Text="Patient Name" VerticalAlignment="Top" Grid.Row="2" FontSize="18" FontWeight="SemiBold"></TextBlock>
-                            <TextBox VerticalAlignment="Bottom" Height="33" Grid.Row="3" IsReadOnly="True" BorderBrush="DodgerBlue" BorderThickness="0,0,0,2"></TextBox>
+                            <TextBox x:Name="txt_patientname" VerticalAlignment="Bottom" Height="33" Grid.Row="3" IsReadOnly="True" BorderBrush="DodgerBlue" BorderThickness="0,0,0,2"></TextBox>
                             <TextBlock Text="Age" VerticalAlignment="Top"  Grid.Row="4" FontSize="18" FontWeight="SemiBold"></TextBlock>
-                            <TextBox VerticalAlignment="Bottom" Height="33"  Grid.Row="5" IsReadOnly="True" BorderBrush="DodgerBlue" BorderThickness="0,0,0,2"></TextBox>
+                            <TextBox x:Name="txt_age" VerticalAlignment="Bottom" Height="33"  Grid.Row="5" IsReadOnly="True" BorderBrush="DodgerBlue" BorderThickness="0,0,0,2"></TextBox>
                             <TextBlock Text="DOB" VerticalAlignment="Top" Grid.Row="6" FontSize="18" FontWeight="SemiBold"></TextBlock>
-                            <TextBox VerticalAlignment="Bottom" Height="33" Grid.Row="7" IsReadOnly="True" BorderBrush="DodgerBlue" BorderThickness="0,0,0,2"></TextBox>
+                            <TextBox x:Name="txt_dob" VerticalAlignment="Bottom" Height="33" Grid.Row="7" IsReadOnly="True" BorderBrush="DodgerBlue" BorderThickness="0,0,0,2"></TextBox>
                         </Grid>
                     </StackPanel>
                 </Border>

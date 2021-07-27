@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:_3iCamera.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Dashpage">
+      Title="Dashpage" >
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -17,7 +17,7 @@
             <RowDefinition Height="230"></RowDefinition>
         </Grid.RowDefinitions>
         <ScrollViewer x:Name="SearchGridScroll" Grid.Column="0" Grid.Row="0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"  VerticalAlignment="Stretch" PreviewMouseWheel="SearchGridScroll_PreviewMouseWheel" Margin="0,0" BorderBrush="Black" BorderThickness="1">
-            <DataGrid x:Name="Searchgrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  AlternatingRowBackground="{DynamicResource AlternateColor}" AutoGenerateColumns="False"  EnableRowVirtualization="True" RowDetailsVisibilityMode="VisibleWhenSelected" GridLinesVisibility="None" Background="White" IsReadOnly="True" >
+            <DataGrid x:Name="Searchgrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  AlternatingRowBackground="White" AutoGenerateColumns="False"  EnableRowVirtualization="True" ItemsSource="{Binding}" HorizontalGridLinesBrush="Transparent"  RowDetailsVisibilityMode="VisibleWhenSelected" GridLinesVisibility="None" Background="White" IsReadOnly="True" >
                 <DataGrid.ColumnHeaderStyle>
                     <Style TargetType="{x:Type DataGridColumnHeader}">
                         <Setter Property="Background" Value="{StaticResource PrimaryHeaderBrush}"/>
@@ -43,47 +43,52 @@
                 </DataGrid.RowStyle>
 
                 <DataGrid.Columns>
-                    <DataGridTextColumn x:Name="mrnoColumn" Binding="{Binding id}" IsReadOnly="True" Width="100">
+                    <DataGridTextColumn x:Name="visitidColumn" Binding="{Binding Visitid}" IsReadOnly="True" Width="100" Visibility="Hidden">
                         <DataGridTextColumn.Header>
                             <TextBlock Text="MRNO"/>
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
-                    <DataGridTextColumn x:Name="patientnameColumn" Binding="{Binding orderid}"  Width="150" CanUserResize="False">
+                    <DataGridTextColumn x:Name="mrnoColumn" Binding="{Binding MRNO}" IsReadOnly="True" Width="100">
+                        <DataGridTextColumn.Header>
+                            <TextBlock Text="MRNO"/>
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn x:Name="patientnameColumn" Binding="{Binding PName}"  Width="150" CanUserResize="False">
                         <DataGridTextColumn.Header>
                             <TextBlock Text="Patient Name"/>
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
-                    <DataGridTextColumn x:Name="ageColumn" Binding="{Binding ordername}"  Width="50">
+                    <DataGridTextColumn x:Name="ageColumn" Binding="{Binding PAge}"  Width="50">
                         <DataGridTextColumn.Header>
                             <TextBlock Text="Age"/>
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
-                    <DataGridTextColumn x:Name="genderColumn" Binding="{Binding trans_id}"  Width="100">
+                    <DataGridTextColumn x:Name="genderColumn" Binding="{Binding PGender}"  Width="100">
                         <DataGridTextColumn.Header>
                             <TextBlock Text="Gender"/>
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
-                    <DataGridTextColumn x:Name="vdateColumn" Binding="{Binding Netamount}"  Width="120">
+                    <DataGridTextColumn x:Name="vdateColumn" Binding="{Binding VDate,StringFormat=dd.MM.yyyy HH:mm}"  Width="120">
                         <DataGridTextColumn.Header>
                             <TextBlock Text="VisitDate"/>
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
-                    <DataGridTextColumn x:Name="edoctorColumn" Binding="{Binding Taxamount}"  Width="150">
+                    <DataGridTextColumn x:Name="edoctorColumn" Binding="{Binding EDR}"  Width="150">
                         <DataGridTextColumn.Header>
                             <TextBlock Text="Examining Doctor"/>
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
-                    <DataGridTextColumn x:Name="diagnosisColumn" Binding="{Binding Grdamount}"  Width="100">
+                    <DataGridTextColumn x:Name="diagnosisColumn" Binding="{Binding Proce}"  Width="100">
                         <DataGridTextColumn.Header>
                             <TextBlock Text="Diagnosis"/>
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
-                    <DataGridTextColumn x:Name="eyeColumn" Binding="{Binding LastCreated_DT,StringFormat=dd.MM.yyyy HH:mm}" Width="100">
+                    <DataGridTextColumn x:Name="eyeColumn" Binding="{Binding EEye}" Width="100">
                         <DataGridTextColumn.Header>
                             <TextBlock Text="Eye"/>
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
-                    <DataGridTextColumn x:Name="summarycolumn" Binding="{Binding order_status}"  Width="200">
+                    <DataGridTextColumn x:Name="summarycolumn" Binding="{Binding Summary}"  Width="200">
                         <DataGridTextColumn.Header>
                             <TextBlock Text="Summary"/>
                         </DataGridTextColumn.Header>

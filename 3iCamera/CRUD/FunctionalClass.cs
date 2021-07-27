@@ -324,7 +324,210 @@ namespace _3iCamera
             catch (Exception ex) { return null; }
 
         }
-       
+
+        #endregion
+
+        #region Patient
+        public string SavePatient(PatientClass patientClass)
+        {
+            string status = "Data not Save Successfully";
+            if (patientClass != null)
+            {
+                Con.Open();
+                SQLiteCommand sQLiteCommand = new SQLiteCommand("insert into tbl_Patient (PatientID,FirstName,LastName,DOB,Gender,EDoctor,RDR,Archive,Address,Email,Mobile,DiagInfo,CVisit,LVisit) values (@1,@2,@3,@4,@5,@6,@7,@8,@9,@10,@11,@12,@13,@14)", Con);
+                sQLiteCommand.Parameters.AddWithValue("@1", patientClass.PatientID);
+                sQLiteCommand.Parameters.AddWithValue("@2", patientClass.FirstName);
+                sQLiteCommand.Parameters.AddWithValue("@3", patientClass.LastName);
+                sQLiteCommand.Parameters.AddWithValue("@4", patientClass.DOB);
+                sQLiteCommand.Parameters.AddWithValue("@5", patientClass.Gender);
+                sQLiteCommand.Parameters.AddWithValue("@6", patientClass.EDR);
+                sQLiteCommand.Parameters.AddWithValue("@7", patientClass.RDR);
+                sQLiteCommand.Parameters.AddWithValue("@8", patientClass.Archive);
+                sQLiteCommand.Parameters.AddWithValue("@9", patientClass.Address);
+                sQLiteCommand.Parameters.AddWithValue("@10", patientClass.Email);
+                sQLiteCommand.Parameters.AddWithValue("@11", patientClass.Mobile);
+                sQLiteCommand.Parameters.AddWithValue("@12", patientClass.DiagInfo);
+                sQLiteCommand.Parameters.AddWithValue("@13", patientClass.CVisit);
+                sQLiteCommand.Parameters.AddWithValue("@14", patientClass.LVisit);
+                int i = sQLiteCommand.ExecuteNonQuery();
+                if (i > 0)
+                {
+                    status = "Data Save Successfully";
+                }
+                sQLiteCommand.Dispose();
+                Con.Close();
+
+            }
+            return status;
+        }
+
+        public string UpdatePatient(PatientClass patientClass)
+        {
+            string status = "Data not Update Successfully";
+            if (patientClass != null)
+            {
+                Con.Open();
+                SQLiteCommand sQLiteCommand = new SQLiteCommand("update tbl_Patient set LastName=@1,DOB=@2,Gender=@3,EDoctor=@4,Email=@5,Mobile=@6,LVisit=@7 where PatientID=@8", Con);                         
+                sQLiteCommand.Parameters.AddWithValue("@1", patientClass.LastName);
+                sQLiteCommand.Parameters.AddWithValue("@2", patientClass.DOB);
+                sQLiteCommand.Parameters.AddWithValue("@3", patientClass.Gender);
+                sQLiteCommand.Parameters.AddWithValue("@4", patientClass.EDR);                
+                sQLiteCommand.Parameters.AddWithValue("@5", patientClass.Email);
+                sQLiteCommand.Parameters.AddWithValue("@6", patientClass.Mobile);               
+                sQLiteCommand.Parameters.AddWithValue("@7", patientClass.LVisit);
+                sQLiteCommand.Parameters.AddWithValue("@8", patientClass.PatientID);
+                int i = sQLiteCommand.ExecuteNonQuery();
+                if (i > 0)
+                {
+                    status = "Data Update Successfully";
+                }
+                sQLiteCommand.Dispose();
+                Con.Close();
+
+            }
+            return status;
+        }
+
+        public string SavePatientVisit(PatientVisitClass patientvisitclass)
+        {
+            string status = "Data not Save Successfully";
+            if (patientvisitclass != null)
+            {
+                Con.Open();
+                SQLiteCommand sQLiteCommand = new SQLiteCommand("insert into tbl_PatientVisit (Visitid,MRNO,PName,PAge,PGender,VDate,EDR,Proce,EEye) values (@1,@2,@3,@4,@5,@6,@7,@8,@9)", Con);
+                sQLiteCommand.Parameters.AddWithValue("@1", patientvisitclass.Visitid);
+                sQLiteCommand.Parameters.AddWithValue("@2", patientvisitclass.MRNO);
+                sQLiteCommand.Parameters.AddWithValue("@3", patientvisitclass.PName);
+                sQLiteCommand.Parameters.AddWithValue("@4", patientvisitclass.PAge);
+                sQLiteCommand.Parameters.AddWithValue("@5", patientvisitclass.PGender);
+                sQLiteCommand.Parameters.AddWithValue("@6", patientvisitclass.VDate);
+                sQLiteCommand.Parameters.AddWithValue("@7", patientvisitclass.EDR);
+                sQLiteCommand.Parameters.AddWithValue("@8", patientvisitclass.Proce);
+                sQLiteCommand.Parameters.AddWithValue("@9", patientvisitclass.EEye);
+                int i = sQLiteCommand.ExecuteNonQuery();
+                if (i > 0)
+                {
+                    status = "Data Save Successfully";
+                }
+                sQLiteCommand.Dispose();
+                Con.Close();
+            }
+            return status;
+        }
+
+        public List<Patientvisit_detail> GetPatientDetail()
+        {
+            List<Patientvisit_detail> PVD = new List<Patientvisit_detail>();
+            try
+            {
+                Con.Open();
+                SQLiteCommand sQLiteCommand = new SQLiteCommand("Select * from PatientList_View", Con);
+                SQLiteDataReader DR = sQLiteCommand.ExecuteReader();
+
+                while (DR.Read())
+                {
+                    Patientvisit_detail DRC = new Patientvisit_detail();
+                    DRC.Visitid = DR.GetValue(0).ToString();
+                    DRC.MRNO = DR.GetValue(1).ToString();
+                    DRC.PName = DR.GetValue(2).ToString();
+                    DRC.PAge = DR.GetValue(3).ToString();
+                    DRC.PGender = DR.GetValue(4).ToString();
+                    DRC.VDate = DR.GetValue(5).ToString();
+                    DRC.EDR = DR.GetValue(6).ToString();
+                    DRC.Proce = DR.GetValue(7).ToString();
+                    DRC.EEye = DR.GetValue(8).ToString();
+                    DRC.Summary = DR.GetValue(9).ToString();
+                    PVD.Add(DRC);
+
+                }
+                sQLiteCommand.Dispose();
+                Con.Close();
+
+            }
+            catch(Exception ex) { }
+            return PVD;
+        }
+
+        public bool GetPatienidStatus(string patientid)
+        {
+            Con = new SQLiteConnection("Data Source = " + CommanHelper.databasepath + ";Version=3;New=False;Compress=True;");
+            bool sts = false;
+            try
+            {
+                Con.Open();
+                SQLiteCommand sQLiteCommand = new SQLiteCommand("Select count(*)  from tbl_Patient where PatientID=@1", Con);
+                sQLiteCommand.Parameters.AddWithValue("@1", patientid);
+                var count = sQLiteCommand.ExecuteScalar();
+                sQLiteCommand.Dispose();
+                Con.Close();
+                if (count.ToString() == "1")
+                {
+                    sts = true;
+                }
+            }
+            catch(Exception ex) { }
+            return sts;
+        }
+
+        public int GenerateVisitID()
+        {
+            int sts = 0;
+            try
+            {
+                Con = new SQLiteConnection("Data Source = " + CommanHelper.databasepath + ";Version=3;New=False;Compress=True;");                
+                Con.Open();
+                SQLiteCommand sQLiteCommand = new SQLiteCommand("Select visitid from tbl_PatientVisit ORDER BY Visitid DESC LIMIT 1", Con);
+                var count = sQLiteCommand.ExecuteReader();
+                if (count.Read())
+                {
+                    sts = int.Parse(count.GetValue(0).ToString());
+                }
+                else { sts = 1000; }
+                sQLiteCommand.Dispose();
+                Con.Close();
+               
+            }
+            catch(Exception ex) { }
+            return sts;
+        }
+
+        public PatientClass GetPatientinfo(string patientid)
+        {
+            PatientClass PC = null;
+            try
+            {
+                
+                Con = new SQLiteConnection("Data Source = " + CommanHelper.databasepath + ";Version=3;New=False;Compress=True;");
+
+                Con.Open();
+                SQLiteCommand sQLiteCommand = new SQLiteCommand("Select PatientID,FirstName,LastName,DOB,Gender,EDoctor,RDR,Archive,Address,Email,Mobile,DiagInfo,CVisit,LVisit from tbl_Patient where PatientID=@1", Con);
+                sQLiteCommand.Parameters.AddWithValue("@1", patientid);
+                SQLiteDataReader count = sQLiteCommand.ExecuteReader();
+                if (count.Read())
+                {
+                    PC = new PatientClass();
+                    PC.PatientID = count.GetValue(0).ToString();
+                    PC.FirstName = count.GetValue(1).ToString();
+                    PC.LastName = count.GetValue(2).ToString();
+                    PC.DOB = count.GetValue(3).ToString();
+                    PC.Gender = count.GetValue(4).ToString();
+                    PC.EDR = count.GetValue(5).ToString();
+                    PC.RDR = count.GetValue(6).ToString();
+                    PC.Archive = count.GetValue(7).ToString();
+                    PC.Address = count.GetValue(8).ToString();
+                    PC.Email = count.GetValue(9).ToString();
+                    PC.Mobile = count.GetValue(10).ToString();
+                    PC.DiagInfo = count.GetValue(11).ToString();
+                    PC.CVisit = count.GetValue(12).ToString();
+                    PC.LVisit = count.GetValue(13).ToString();
+                }
+                sQLiteCommand.Dispose();
+                Con.Close();              
+            }
+            catch(Exception ex) { }
+            return PC;
+        }
+
         #endregion
     }
     public static class Image_Convertion

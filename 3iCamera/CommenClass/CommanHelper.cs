@@ -9,7 +9,7 @@ namespace _3iCamera
     class CommanHelper
     {
         public static string databasepath { get; set; }
-        public static string localpath { get; set; }
+      
 
         public static int Cm_CameraId { get; set; }
         public static string Cm_Devicename { get; set; }

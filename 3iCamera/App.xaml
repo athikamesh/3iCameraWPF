@@ -15,7 +15,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.DatePicker.xaml" />
             </ResourceDictionary.MergedDictionaries>
        
-        <SolidColorBrush x:Key="AlternateColor" Color="WhiteSmoke" />
+        <SolidColorBrush x:Key="AlternateColor" Color="#FFA0A4A6" />
         <SolidColorBrush x:Key="PrimaryBrush" Color="#FF6494FD" />
         <SolidColorBrush x:Key="PrimaryHeaderBrush" Color="DodgerBlue" />
         <SolidColorBrush x:Key="PrimaryFont" Color="White" />

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_3iCamera"
         mc:Ignorable="d"
-        Title="I-Captuer" WindowState="Maximized" WindowStyle="None">
+        Title="I-Captuer" WindowState="Maximized" WindowStyle="None" Activated="Window_Activated">
     <Window.Resources>
        
     </Window.Resources>

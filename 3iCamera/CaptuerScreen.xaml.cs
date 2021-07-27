@@ -30,19 +30,20 @@ namespace _3iCamera
         public FilterInfoCollection LoaclWebCamsCollection;
         private AForge.Video.DirectShow.VideoCapabilities[] videoCapabilities;
         private AForge.Video.DirectShow.VideoCapabilities[] snapshotCapabilities;
-        string gen = "";
-        private string __checkvalue;
+        string Eye = "OD";
+        private string __checkvalue; 
         public string Checkvalue
         {
             get { return __checkvalue; }
             set { __checkvalue = value; }
         }
         public bool camera_status = false;
-
-
-        public CaptuerScreen()
+        PatientVisitClass PVC = new PatientVisitClass();
+        FunctionalClass FNC = new FunctionalClass();
+        public CaptuerScreen(PatientVisitClass patientVisitClass)
         {
-            InitializeComponent();           
+            InitializeComponent();
+            Checkvalue = "OD";
             LoaclWebCamsCollection = new FilterInfoCollection(FilterCategory.VideoInputDevice);
             if (LoaclWebCamsCollection.Count == 0)
             {
@@ -73,8 +74,35 @@ namespace _3iCamera
                 btn_od.IsDefault = true;
 
                 btn_od_Click(null, null);
+
+                if(patientVisitClass!=null)
+                {
+                    PVC.Visitid = FNC.GenerateVisitID().ToString();
+                    PVC.MRNO = patientVisitClass.MRNO;
+                    PVC.PName = patientVisitClass.PName;
+                    PVC.PAge = patientVisitClass.PAge;
+                    PVC.PGender = patientVisitClass.PGender;
+                    PVC.VDate = patientVisitClass.VDate;
+                    PVC.EDR = patientVisitClass.EDR;
+                    PVC.Proce = patientVisitClass.Proce;
+                    PVC.EEye = patientVisitClass.EEye;
+                    PVC.Summary = patientVisitClass.Summary;
+                    PVC.PatientFolder = patientVisitClass.PatientFolder + "\\" + PVC.Visitid + "-" + PVC.VDate;
+                    if (!Directory.Exists(PVC.PatientFolder))
+                    {
+                        DirectoryInfo di = Directory.CreateDirectory(PVC.PatientFolder);
+                        di.CreateSubdirectory("Video");
+                        di.CreateSubdirectory("Photo");
+                        di.CreateSubdirectory("Dicom");
+                    }
+                    txt_age.Text = patientVisitClass.PAge;
+                    txt_dob.Text = patientVisitClass.PDOB;
+                    txt_mrno.Text = patientVisitClass.MRNO;
+                    txt_patientname.Text = patientVisitClass.PName;
+                }
             }
         }
+
         void Cam_NewFrame(object sender, NewFrameEventArgs eventArgs)
         {
             try
@@ -131,12 +159,12 @@ namespace _3iCamera
                 Dispatcher.Invoke(new Action<Bitmap>(ShowSnapshot), image_snapshot_from_camera);
             }
             else
-            {
-                string path = CommanHelper.Cm_Spath;
+            {              
+               
                 try
                 {
 
-                    image_snapshot_from_camera.Save(path + "\\NewCametra-" + DateTime.Now.ToString("yyyy-MM-dd hh-mm-ss") + "-" + gen + ".jpg", ImageFormat.Jpeg);
+                    image_snapshot_from_camera.Save(PVC.PatientFolder + "\\Photo\\"+DateTime.Now.ToString("yyyy-MM-dd hh-mm-ss") + "-" + Eye + ".jpg", ImageFormat.Jpeg);
 
                 }
                 catch (Exception ex) { MessageBox.Show(ex.Message, "Warning"); }
@@ -188,7 +216,12 @@ namespace _3iCamera
 
         private void btn_od_Click(object sender, RoutedEventArgs e)
         {
-            Checkvalue = "OD";
+            if (Checkvalue.Contains("OD") == false)
+            {
+                Checkvalue += "OD";
+              
+            }
+            Eye = "OD";
             txt_os.Foreground = System.Windows.Media.Brushes.White;
             txt_od.Foreground = System.Windows.Media.Brushes.Black;
             btn_od.IsDefault = true;
@@ -197,7 +230,12 @@ namespace _3iCamera
 
         private void btn_os_Click(object sender, RoutedEventArgs e)
         {
-            Checkvalue = "OS";
+            if (Checkvalue.Contains("OS") == false)
+            {
+                Checkvalue += "OS";
+             
+            }
+            Eye = "OS";
             txt_os.Foreground = System.Windows.Media.Brushes.Black;
             txt_od.Foreground = System.Windows.Media.Brushes.White;
             btn_os.IsDefault = true;
@@ -216,6 +254,18 @@ namespace _3iCamera
                 LocalWebCam.SimulateTrigger();
 
             }
+        }
+
+        private void btn_save_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                PVC.EEye = Checkvalue;
+                PVC.VDate= DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss");
+                String Message = FNC.SavePatientVisit(PVC);
+                MessageBox.Show(Message, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch(Exception ex) { }
         }
     }
 }

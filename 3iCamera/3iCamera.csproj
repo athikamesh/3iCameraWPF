@@ -155,6 +155,8 @@
     <Compile Include="CommenClass\CommanHelper.cs" />
     <Compile Include="CRUD\FunctionalClass.cs" />
     <Compile Include="ObjectClass\DoctorClass.cs" />
+    <Compile Include="ObjectClass\PatientClass.cs" />
+    <Compile Include="ObjectClass\PatientVisitClass.cs" />
     <Compile Include="ObjectClass\ReportSettingClass.cs" />
     <Compile Include="ObjectClass\UtilityClass.cs" />
     <Compile Include="Pages\Doctorlist.xaml.cs">
