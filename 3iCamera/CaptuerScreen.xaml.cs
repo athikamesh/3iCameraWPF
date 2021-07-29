@@ -267,5 +267,34 @@ namespace _3iCamera
             }
             catch(Exception ex) { }
         }
+
+        private void btn_setting_Click(object sender, RoutedEventArgs e)
+        {
+            if(setting_grid.Width==0)
+            {
+                setting_grid.Width = 400;
+            }
+            else
+            {
+                setting_grid.Width = 0;
+            }
+        }
+
+        private void btn_setting_close_Click(object sender, RoutedEventArgs e)
+        {
+            if (setting_grid.Width == 0)
+            {
+               
+            }
+            else
+            {
+                setting_grid.Width = 0;
+            }
+        }
+
+        private void btn_settingclose_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
