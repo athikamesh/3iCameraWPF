@@ -529,6 +529,77 @@ namespace _3iCamera
         }
 
         #endregion
+
+        #region CameraSetting
+        public string SaveCameraSetting(CameraSettingClass cameraSettingClass)
+        {
+            string status = "Data not Save Successfully";
+            if(cameraSettingClass!=null)
+            {
+                Con.Open();
+                SQLiteCommand sQLiteCommand = new SQLiteCommand("update tbl_CameraData set BacklightCompensation=@1,Brightness=@2,Contrast=@3,Gain=@4,Gamma=@5,Hue=@6,Saturation=@7,Sharpness=@8,WhiteBalance=@9,Exposure=@10,Focus=@11,Iris=@12,Pan=@13,Roll=@14,Tilt=@15,Zoom=@16,AWB=@17,AEX=@18 where Mode=@19", Con);
+                sQLiteCommand.Parameters.AddWithValue("@1", cameraSettingClass.BacklightCompensation);
+                sQLiteCommand.Parameters.AddWithValue("@2", cameraSettingClass.Brightness);
+                sQLiteCommand.Parameters.AddWithValue("@3", cameraSettingClass.Contrast);
+                sQLiteCommand.Parameters.AddWithValue("@4", cameraSettingClass.Gain);
+                sQLiteCommand.Parameters.AddWithValue("@5", cameraSettingClass.Gamma);
+                sQLiteCommand.Parameters.AddWithValue("@6", cameraSettingClass.Hue);
+                sQLiteCommand.Parameters.AddWithValue("@7", cameraSettingClass.Saturation);
+                sQLiteCommand.Parameters.AddWithValue("@8", cameraSettingClass.Sharpness);
+                sQLiteCommand.Parameters.AddWithValue("@9", cameraSettingClass.WhiteBalance);
+                sQLiteCommand.Parameters.AddWithValue("@10", cameraSettingClass.Exposure);
+                sQLiteCommand.Parameters.AddWithValue("@11", cameraSettingClass.Focus);
+                sQLiteCommand.Parameters.AddWithValue("@12", cameraSettingClass.Iris);
+                sQLiteCommand.Parameters.AddWithValue("@13", cameraSettingClass.Pan);
+                sQLiteCommand.Parameters.AddWithValue("@14", cameraSettingClass.Roll);
+                sQLiteCommand.Parameters.AddWithValue("@15", cameraSettingClass.Tilt);
+                sQLiteCommand.Parameters.AddWithValue("@16", cameraSettingClass.Zoom);
+                sQLiteCommand.Parameters.AddWithValue("@17", cameraSettingClass.AWB);
+                sQLiteCommand.Parameters.AddWithValue("@18", cameraSettingClass.AEX);
+                int i = sQLiteCommand.ExecuteNonQuery();
+                if (i > 0)
+                {
+                    status = "Data Update Successfully";
+                }
+                sQLiteCommand.Dispose();
+                Con.Close();
+            }
+            return status;
+        }
+
+        public CameraSettingClass GetCameraSetting(string TypeMode)
+        {
+            CameraSettingClass CSC = new CameraSettingClass();
+            Con = new SQLiteConnection("Data Source = " + CommanHelper.databasepath + ";Version=3;New=False;Compress=True;");
+            Con.Open();
+            SQLiteCommand sQLiteCommand = new SQLiteCommand("Select * from tbl_CameraData where Mode=@1", Con);
+            sQLiteCommand.Parameters.AddWithValue("@1", TypeMode);
+            SQLiteDataReader count = sQLiteCommand.ExecuteReader();
+            if(count.Read())
+            {
+                CSC.Mode = count.GetValue(1).ToString();
+                CSC.BacklightCompensation = int.Parse(count.GetValue(2).ToString());
+                CSC.Brightness = int.Parse(count.GetValue(3).ToString());
+                CSC.Contrast = int.Parse(count.GetValue(4).ToString());
+                CSC.Gain = int.Parse(count.GetValue(5).ToString());
+                CSC.Gamma = int.Parse(count.GetValue(6).ToString());
+                CSC.Hue = int.Parse(count.GetValue(7).ToString());
+                CSC.Saturation = int.Parse(count.GetValue(8).ToString());
+                CSC.Sharpness = int.Parse(count.GetValue(9).ToString());
+                CSC.WhiteBalance = int.Parse(count.GetValue(10).ToString());
+                CSC.Exposure = int.Parse(count.GetValue(11).ToString());
+                CSC.Focus = int.Parse(count.GetValue(12).ToString());
+                CSC.Iris = int.Parse(count.GetValue(13).ToString());
+                CSC.Pan = int.Parse(count.GetValue(14).ToString());
+                CSC.Roll = int.Parse(count.GetValue(15).ToString());
+                CSC.Tilt = int.Parse(count.GetValue(16).ToString());
+                CSC.Zoom = int.Parse(count.GetValue(17).ToString());
+                CSC.AWB = 1;
+                CSC.AEX = 1;
+            }
+            return CSC;
+        }
+        #endregion
     }
     public static class Image_Convertion
     {

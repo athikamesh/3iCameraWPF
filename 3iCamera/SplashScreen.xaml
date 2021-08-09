@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:_3iCamera"
         xmlns:Custom="http://metrowpf.codeplex.com/controls" xmlns:WPFSpark="clr-namespace:WPFSpark;assembly=WPFSpark" x:Class="_3iCamera.SplashScreen"
         mc:Ignorable="d"
-        Title="SplashScreen" Height="400" Width="600" WindowStartupLocation="CenterScreen" WindowState="Normal" ResizeMode="NoResize" WindowStyle="None">
-
+        Title="SplashScreen" Height="400" Width="600" WindowStartupLocation="CenterScreen" WindowState="Normal" ResizeMode="NoResize" WindowStyle="None" Background="Transparent">
+        
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="Images/splashscreen_v1p3.jpg"/>
@@ -15,8 +15,9 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="50"/>
-        </Grid.RowDefinitions>
+        </Grid.RowDefinitions>          
         <TextBlock x:Name="txt_status" HorizontalAlignment="Left" Height="25"  Grid.Row="1" VerticalAlignment="Top"></TextBlock>
         <WPFSpark:FluidProgressBar HorizontalAlignment="Left" Height="25"  Grid.Row="1" VerticalAlignment="Bottom" Width="600"/>
     </Grid>
+   
 </Window>

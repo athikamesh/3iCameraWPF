@@ -22,13 +22,14 @@ namespace _3iCamera
     /// </summary>
     public partial class MainWindow : Window
     {
-      
-        public MainWindow()
+       
+        public MainWindow(bool Camerastatus)
         {
             InitializeComponent();
-            Pages.Dashpage Dpage = new Pages.Dashpage();
-            Pageframe.Navigate(Dpage);
            
+            Pages.Dashpage Dpage = new Pages.Dashpage(Camerastatus);
+            Pageframe.Navigate(Dpage);
+            
         }
 
         

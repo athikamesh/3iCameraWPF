@@ -38,6 +38,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>aurolab-logo-120x120.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Accord, Version=3.8.0.0, Culture=neutral, PublicKeyToken=fa1a88e29555ccf7, processorArchitecture=MSIL">
       <HintPath>..\packages\Accord.3.8.0\lib\net45\Accord.dll</HintPath>
@@ -101,6 +104,9 @@
     <Reference Include="MaterialDesignThemes.Wpf">
       <HintPath>..\..\MaterialDesignDatePicker\WpfControlLibrary1\bin\Debug\MaterialDesignThemes.Wpf.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.19\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
     </Reference>
@@ -126,7 +132,10 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\System.Windows.Interactivity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -154,6 +163,7 @@
     </ApplicationDefinition>
     <Compile Include="CommenClass\CommanHelper.cs" />
     <Compile Include="CRUD\FunctionalClass.cs" />
+    <Compile Include="ObjectClass\CameraSettingClass.cs" />
     <Compile Include="ObjectClass\DoctorClass.cs" />
     <Compile Include="ObjectClass\PatientClass.cs" />
     <Compile Include="ObjectClass\PatientVisitClass.cs" />
@@ -185,6 +195,9 @@
     </Compile>
     <Compile Include="Toolwindows.xaml.cs">
       <DependentUpon>Toolwindows.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UControl\ImageControl.xaml.cs">
+      <DependentUpon>ImageControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UControl\SwitchTG.xaml.cs">
       <DependentUpon>SwitchTG.xaml</DependentUpon>
@@ -249,6 +262,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Toolwindows.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UControl\ImageControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -335,6 +352,7 @@
     <Resource Include="Images\splashscreen_v1p3.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="aurolab-logo-120x120.ico" />
     <Content Include="bin\Debug\3iCamera.exe" />
     <Content Include="bin\Debug\3iCamera.pdb" />
     <Content Include="bin\Debug\Accord.dll" />

@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="_3iCamera.UControl.ImageControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:_3iCamera.UControl"
+             mc:Ignorable="d" 
+             d:DesignHeight="200" d:DesignWidth="180" Loaded="UserControl_Loaded">
+    <Border BorderThickness="2" BorderBrush="DodgerBlue" CornerRadius="5">
+    <Grid>     
+       
+        <Image x:Name="thumb_image" Stretch="Fill"></Image>
+        <TextBlock x:Name="txt_eye" VerticalAlignment="Top" Height="16" Text="OD" Foreground="Yellow" FontSize="12" Background="Gray" ></TextBlock>
+        </Grid>
+    </Border>
+</UserControl>

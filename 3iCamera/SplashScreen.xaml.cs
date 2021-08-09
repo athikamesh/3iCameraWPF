@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AForge.Video.DirectShow;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -24,11 +25,11 @@ namespace _3iCamera
     /// </summary>
     public partial class SplashScreen : Window
     {
-        bool isBGWorking = false;
+        bool isBGWorking = false; bool camera_status = false;
         BackgroundWorker bgWorker;
         int increase = 0; DispatcherTimer DS = new DispatcherTimer();
         FunctionalClass FNC = new FunctionalClass();
-        
+        public FilterInfoCollection LoaclWebCamsCollection;
         public SplashScreen()
         {
             InitializeComponent();
@@ -61,7 +62,16 @@ namespace _3iCamera
                     txt_status.Text = "Database connected";
                 }
             }
-            if(increase==4)
+            if (increase == 4)
+            {
+                LoaclWebCamsCollection = new FilterInfoCollection(FilterCategory.VideoInputDevice);
+                if (LoaclWebCamsCollection.Count > 0)
+                {
+                    var LocalWebCam = new VideoCaptureDevice(LoaclWebCamsCollection[CommanHelper.Cm_CameraId].Name);
+                    if (LocalWebCam.Source == "HD USB Camera") { Pages.Dashpage.cam_Status = true; } else { Pages.Dashpage.cam_Status = false; }
+                }
+            }
+            if (increase==6)
             {             
                 if (File.Exists(CommanHelper.databasepath)==true)
                 {
@@ -83,14 +93,14 @@ namespace _3iCamera
                         TW.ShowDialog();
                     }
                 }
-            }
+            }           
             if (increase >=10)
             {
                 DS.Stop();
                 this.Hide();
                 bgWorker.CancelAsync();
-                isBGWorking = false;
-                MainWindow md = new MainWindow();
+                isBGWorking = false;                
+                MainWindow md = new MainWindow(camera_status);
                 md.ShowDialog();
                
 

@@ -22,19 +22,41 @@ namespace _3iCamera.Pages
     /// </summary>
     public partial class Dashpage : Page
     {
+        public static bool cam_Status = false;
         FunctionalClass FNC = new FunctionalClass();
         DispatcherTimer timer = new DispatcherTimer();
         BackgroundWorker workerL1 = new BackgroundWorker();
-        public Dashpage()
+        int Previouscount = 0, Currentcount = 0;
+        public Dashpage(bool camerastatus)
         {
             InitializeComponent();
             setgridsize();
-            
+            cam_Status = camerastatus;
             workerL1.DoWork += WorkerL1_DoWork;
             workerL1.RunWorkerCompleted += WorkerL1_RunWorkerCompleted;
+        
             timer.Interval = TimeSpan.FromSeconds(0.2);
             timer.Tick += timer_Tick;
             timer.Start();
+
+         
+        }
+
+      
+        void ChangeCameraStatus()
+        {
+            if(cam_Status==false)
+            {
+                btn_live.IsEnabled = false;
+                btn_captuer.IsEnabled = false;
+                btn_patient.IsEnabled = false;
+            }
+            else
+            {
+                btn_live.IsEnabled = true;
+                btn_captuer.IsEnabled = true;
+                btn_patient.IsEnabled = true;
+            }
         }
         private void timer_Tick(object sender, EventArgs e)
         {
@@ -43,7 +65,9 @@ namespace _3iCamera.Pages
                 if (!workerL1.IsBusy)
                 {
                     workerL1.RunWorkerAsync();
+                    
                 }
+              
             }
             catch(Exception ex) { }
         }
@@ -73,7 +97,7 @@ namespace _3iCamera.Pages
 
         private void Btn_live_Click(object sender, RoutedEventArgs e)
         {
-            CaptuerScreen CS = new CaptuerScreen(null);
+            CaptuerScreen CS = new CaptuerScreen(null,"live");
             CS.ShowDialog();
         }
 
@@ -86,7 +110,7 @@ namespace _3iCamera.Pages
             patientnameColumn.Width = (scrwd / 100) * 20;
             ageColumn.Width = (scrwd / 100) * 5;
             genderColumn.Width = (scrwd / 100) * 10;
-            vdateColumn.Width = (scrwd / 100) * 10;
+            vdateColumn.Width = (scrwd / 100) * 14;
             edoctorColumn.Width = (scrwd / 100) * 13;
             diagnosisColumn.Width = (scrwd / 100) * 10;
             eyeColumn.Width = (scrwd / 100) * 5;
@@ -101,7 +125,18 @@ namespace _3iCamera.Pages
                 Dispatcher.Invoke(() => {
                     // Code causing the exception or requires UI thread access
                     var data = FNC.GetPatientDetail();
-                    Searchgrid.ItemsSource = data;
+                    if(Previouscount==0)
+                    {
+                        Previouscount = data.Count;
+                        Searchgrid.ItemsSource = data;
+                    }
+                    Currentcount = data.Count;
+                    if (Previouscount > data.Count)
+                    {
+                        Searchgrid.ItemsSource = data;
+                        Previouscount = Currentcount;
+                    }
+                   
                 });
                
             }
