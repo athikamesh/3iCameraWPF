@@ -36,5 +36,6 @@ namespace _3iCamera
         public string EEye { get; set; }
         public Image IVData { get; set; }
         public string Summary { get; set; }
+        public string PatientFolder { get; set; }
     }
 }

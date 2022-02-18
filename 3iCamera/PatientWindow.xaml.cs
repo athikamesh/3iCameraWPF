@@ -62,9 +62,8 @@ namespace _3iCamera
                         if (!Directory.Exists(CommanHelper.Cm_Spath + "\\" + txt_patientid.Text + txt_firstname.Text))
                         {
                            DirectoryInfo di= Directory.CreateDirectory(CommanHelper.Cm_Spath + "\\" + txt_patientid.Text + txt_firstname.Text);
-                       
+                            
                         }
-
                         PatientClass PC = new PatientClass();
                         PC.PatientID = txt_patientid.Text;
                         PC.FirstName = txt_firstname.Text;
@@ -92,8 +91,9 @@ namespace _3iCamera
                         PVC.Proce = txt_diagnosis.Text;
                         PVC.PDOB = txt_date.Text;
                         PVC.PatientFolder = CommanHelper.Cm_Spath + "\\" + txt_patientid.Text + txt_firstname.Text;
-                        CaptuerScreen captuerScreen = new CaptuerScreen(PVC,"Captuer");
-                        captuerScreen.Show();
+                        //CaptuerScreen captuerScreen = new CaptuerScreen(PVC,"Captuer");
+                        //captuerScreen.Show();
+                        CaptuerScreen.PVC = PVC;
                         this.Close();
                     }
                 }

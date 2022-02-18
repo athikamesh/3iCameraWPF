@@ -437,6 +437,7 @@ namespace _3iCamera
                     DRC.Proce = DR.GetValue(7).ToString();
                     DRC.EEye = DR.GetValue(8).ToString();
                     DRC.Summary = DR.GetValue(9).ToString();
+                    DRC.PatientFolder = DR.GetValue(10).ToString();
                     PVD.Add(DRC);
 
                 }

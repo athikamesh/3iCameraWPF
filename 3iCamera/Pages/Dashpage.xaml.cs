@@ -143,6 +143,24 @@ namespace _3iCamera.Pages
             catch(Exception ex) { }
         }
 
+        private void Searchgrid_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+           
+        }
+
+        private void Searchgrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                var det = Searchgrid.SelectedItem;
+                if(det!=null)
+                {
+
+                }
+            }
+            catch { }
+        }
+
         private void btn_patient_Click(object sender, RoutedEventArgs e)
         {
             PatientWindow PW = new PatientWindow();

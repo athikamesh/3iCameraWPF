@@ -38,7 +38,7 @@ namespace _3iCamera
             set { __checkvalue = value; }
         }
         public bool camera_status = false;
-        PatientVisitClass PVC = new PatientVisitClass();
+        public static PatientVisitClass PVC = new PatientVisitClass();
         FunctionalClass FNC = new FunctionalClass();
         public double PlayerWidth = 0;
         public CaptuerScreen(PatientVisitClass patientVisitClass,String Mode)
@@ -141,15 +141,18 @@ namespace _3iCamera
                 //{
                 //    frameHolder.Source = bi;
                 //}));
-                videoresolution.Content = LocalWebCam.VideoResolution.FrameSize.Width + "x" + LocalWebCam.VideoResolution.FrameSize.Height;
+                
                 if (CommanHelper.Cm_Mirror == true)
                 {
                     eventArgs.Frame.RotateFlip(RotateFlipType.Rotate180FlipY);
+                    eventArgs.Frame.RotateFlip(RotateFlipType.Rotate270FlipY);
+                    eventArgs.Frame.RotateFlip(RotateFlipType.Rotate90FlipY);
                 }
                 else { eventArgs.Frame.Clone(); }
             }
+
             catch (Exception ex)
-            {
+            { 
             }
         }
 
@@ -231,6 +234,8 @@ namespace _3iCamera
                 if (CommanHelper.Cm_Mirror == true)
                 {
                     eventArgs.Frame.RotateFlip(RotateFlipType.Rotate180FlipY);
+                    eventArgs.Frame.RotateFlip(RotateFlipType.Rotate270FlipY);
+                    eventArgs.Frame.RotateFlip(RotateFlipType.Rotate90FlipY);
                 }
                 Bitmap bmp = (Bitmap)eventArgs.Frame.Clone();
                 ShowSnapshot(bmp);
@@ -283,7 +288,7 @@ namespace _3iCamera
                     txt_stso.Text = "Stop Camera";
                     camera_status = true;
                     btn_back.IsEnabled = false;
-
+                    videoresolution.Content = resolution;
                 }
                 else
                 {
@@ -358,10 +363,19 @@ namespace _3iCamera
         {
             try
             {
-                PVC.EEye = Checkvalue;
-                PVC.VDate= DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss");
-                String Message = FNC.SavePatientVisit(PVC);
-                MessageBox.Show(Message, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                if (PVC.MRNO != null)
+                {
+                    PVC.EEye = Checkvalue;
+                    PVC.VDate = DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss");
+                    String Message = FNC.SavePatientVisit(PVC);
+                    MessageBox.Show(Message, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    PatientWindow PW = new PatientWindow();
+                    PW.ShowDialog();
+                    
+                }
             }
             catch(Exception ex) { }
         }
@@ -391,8 +405,6 @@ namespace _3iCamera
                 setting_grid.Width = 0;
             }
         }
-
-       
 
         private void player_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
         {
