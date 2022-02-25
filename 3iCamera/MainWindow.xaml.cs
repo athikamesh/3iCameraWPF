@@ -29,7 +29,7 @@ namespace _3iCamera
            
             Pages.Dashpage Dpage = new Pages.Dashpage(Camerastatus);
             Pageframe.Navigate(Dpage);
-            
+           if(CommenMethod.Cleantemp() == false) { MessageBox.Show("Path not read","Alert",MessageBoxButton.OK); }
         }
 
         
@@ -75,6 +75,11 @@ namespace _3iCamera
         private void Window_Activated(object sender, EventArgs e)
         {
             Pageframe.Refresh();
+        }
+
+        void cleantemp()
+        {
+
         }
     }
 }

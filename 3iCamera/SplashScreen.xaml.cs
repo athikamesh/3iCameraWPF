@@ -93,7 +93,11 @@ namespace _3iCamera
                         TW.ShowDialog();
                     }
                 }
-            }           
+            }        
+            if(increase==8)
+            {
+                if (CommenMethod.Cleantemp() == false) { MessageBox.Show("Path not read", "Alert", MessageBoxButton.OK); }
+            }
             if (increase >=10)
             {
                 DS.Stop();

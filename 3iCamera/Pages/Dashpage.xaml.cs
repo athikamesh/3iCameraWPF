@@ -99,6 +99,7 @@ namespace _3iCamera.Pages
         {
             CaptuerScreen CS = new CaptuerScreen(null,"live");
             CS.ShowDialog();
+            if (CommenMethod.Cleantemp() == false) { MessageBox.Show("Path not read", "Alert", MessageBoxButton.OK); }
         }
 
         void setgridsize()
@@ -114,8 +115,7 @@ namespace _3iCamera.Pages
             edoctorColumn.Width = (scrwd / 100) * 13;
             diagnosisColumn.Width = (scrwd / 100) * 10;
             eyeColumn.Width = (scrwd / 100) * 5;
-            summarycolumn.Width = (scrwd / 100) * 10;
-           
+            summarycolumn.Width = (scrwd / 100) * 10;           
         }
 
         void LoadGrid()

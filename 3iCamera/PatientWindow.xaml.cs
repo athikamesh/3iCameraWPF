@@ -90,9 +90,10 @@ namespace _3iCamera
                         PVC.EDR = cmb_examining.Text;
                         PVC.Proce = txt_diagnosis.Text;
                         PVC.PDOB = txt_date.Text;
+                        PVC.VDate= DateTime.Now.ToString("dd-MM-yyyy");
                         PVC.PatientFolder = CommanHelper.Cm_Spath + "\\" + txt_patientid.Text + txt_firstname.Text;
-                        //CaptuerScreen captuerScreen = new CaptuerScreen(PVC,"Captuer");
-                        //captuerScreen.Show();
+                        CaptuerScreen captuerScreen = new CaptuerScreen(PVC, "Captuer");
+                        captuerScreen.Show();
                         CaptuerScreen.PVC = PVC;
                         this.Close();
                     }
