@@ -52,7 +52,7 @@ namespace _3iCamera
             TW.ShowDialog();
         }
 
-        private void tool_utility_Click(object sender, RoutedEventArgs e)
+        private void tool_utility_Click(object sender, RoutedEventArgs e) 
         {
             Pages.Utility UP = new Pages.Utility();
             Toolwindows TW = new Toolwindows(UP);

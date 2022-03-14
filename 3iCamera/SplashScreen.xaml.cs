@@ -55,7 +55,27 @@ namespace _3iCamera
                 isBGWorking = true;
 
             }
-            if(increase ==2)
+          
+
+        }
+
+        private void OnProgress(object sender, ProgressChangedEventArgs e)
+        {
+            
+        }
+
+        private void OnWorkCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+           
+            isBGWorking = false;
+        }
+
+        private void DoWork(object sender, DoWorkEventArgs e)
+        {
+
+            increase++;
+            Dispatcher.Invoke(() => { 
+            if (increase == 2)
             {
                 if (File.Exists(CommanHelper.databasepath) == true)
                 {
@@ -71,9 +91,9 @@ namespace _3iCamera
                     if (LocalWebCam.Source == "HD USB Camera") { Pages.Dashpage.cam_Status = true; } else { Pages.Dashpage.cam_Status = false; }
                 }
             }
-            if (increase==6)
-            {             
-                if (File.Exists(CommanHelper.databasepath)==true)
+            if (increase == 6)
+            {
+                if (File.Exists(CommanHelper.databasepath) == true)
                 {
                     var DR = FNC.GetUtiltiy();
                     if (DR != null)
@@ -93,43 +113,24 @@ namespace _3iCamera
                         TW.ShowDialog();
                     }
                 }
-            }        
-            if(increase==8)
+            }
+            if (increase == 8)
             {
                 if (CommenMethod.Cleantemp() == false) { MessageBox.Show("Path not read", "Alert", MessageBoxButton.OK); }
             }
-            if (increase >=10)
+            if (increase >= 10)
             {
                 DS.Stop();
                 this.Hide();
                 bgWorker.CancelAsync();
-                isBGWorking = false;                
+                isBGWorking = false;
                 MainWindow md = new MainWindow(camera_status);
                 md.ShowDialog();
-               
+
 
             }
+            });
 
-        }
-
-        private void OnProgress(object sender, ProgressChangedEventArgs e)
-        {
-            
-        }
-
-        private void OnWorkCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-           
-            isBGWorking = false;
-        }
-
-        private void DoWork(object sender, DoWorkEventArgs e)
-        {
-
-            increase++;         
-              
-            
-           
         }
     }
 }

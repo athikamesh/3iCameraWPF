@@ -374,6 +374,7 @@ namespace _3iCamera
                 {
                     PatientWindow PW = new PatientWindow();
                     PW.ShowDialog();
+                      
                     
                 }
             }

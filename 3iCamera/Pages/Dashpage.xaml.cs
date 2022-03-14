@@ -38,7 +38,6 @@ namespace _3iCamera.Pages
             timer.Interval = TimeSpan.FromSeconds(0.2);
             timer.Tick += timer_Tick;
             timer.Start();
-
          
         }
 
@@ -97,9 +96,10 @@ namespace _3iCamera.Pages
 
         private void Btn_live_Click(object sender, RoutedEventArgs e)
         {
+            if (CommenMethod.Cleantemp() == false) { MessageBox.Show("Path not read", "Alert", MessageBoxButton.OK); }
             CaptuerScreen CS = new CaptuerScreen(null,"live");
             CS.ShowDialog();
-            if (CommenMethod.Cleantemp() == false) { MessageBox.Show("Path not read", "Alert", MessageBoxButton.OK); }
+            
         }
 
         void setgridsize()
